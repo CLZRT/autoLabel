@@ -5,16 +5,19 @@ import (
 	"cloud.google.com/go/compute/apiv1/computepb"
 	"context"
 	"fmt"
+	"log"
 )
 
-func labelOperation(instanceId string, labels map[string]string) error {
-	instance, err := getInstance(labels["project_id"], labels["zone"], labels["instance_id"])
+func labelOperation(labels map[string]string) error {
+	instance, err := getInstance(labels["projectId"], labels["zone"], labels["instanceName"])
 	if err != nil {
+		log.Printf("instance %s not exist", labels["instanceName"])
 		return err
 	}
 	labelFingerprint := instance.GetLabelFingerprint()
-	err = setInstanceLabel(labels["project_id"], labels["zone"], labels["instance_id"], labels, &labelFingerprint)
+	err = setInstanceLabel(labels, &labelFingerprint)
 	if err != nil {
+		log.Printf("label instance %s not exist", labels["instanceName"])
 		return err
 	}
 	return nil
@@ -23,9 +26,6 @@ func labelOperation(instanceId string, labels map[string]string) error {
 
 // getInstance prints a name of a VM instance in the given zone in the specified project.
 func getInstance(projectID, zone, instanceName string) (*computepb.Instance, error) {
-	// projectID := "your_project_id"
-	// zone := "europe-central2-b"
-	// instanceName := "your_instance_name"
 
 	ctx := context.Background()
 	instancesClient, err := compute.NewInstancesRESTClient(ctx)
@@ -47,12 +47,20 @@ func getInstance(projectID, zone, instanceName string) (*computepb.Instance, err
 	return instance, nil
 }
 
-func setInstanceLabel(projectID, zone, instanceName string, labels map[string]string, labelFingerprint *string) error {
-	// Add the creator label to the instance
-	_, err := client.SetLabels(context.Background(), &computepb.SetLabelsInstanceRequest{
-		Project:  projectID,
-		Zone:     zone,
-		Instance: instanceName,
+func setInstanceLabel(labels map[string]string, labelFingerprint *string) error {
+	// Create an Instances Client
+	var err error
+	client, err = compute.NewInstancesRESTClient(context.Background())
+	if err != nil {
+		log.Fatalf("Failed to create instances client: %w", err)
+	}
+	defer client.Close()
+
+	// Add the labels to the instance
+	_, err = client.SetLabels(context.Background(), &computepb.SetLabelsInstanceRequest{
+		Project:  labels["projectId"],
+		Zone:     labels["zone"],
+		Instance: labels["instanceName"],
 		InstancesSetLabelsRequestResource: &computepb.InstancesSetLabelsRequest{
 			LabelFingerprint: labelFingerprint,
 			Labels:           labels,
