@@ -1,0 +1,39 @@
+{
+  "insertId": "-mr0fcfd9l2q",
+  "labels": {
+    "compute.googleapis.com/root_trigger_id": "5f1938af-c29e-49cc-a643-372926b392df"
+  },
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "operation-1716280485723-618f2b0afbd40-f4da3afe-4f446551",
+    "last": true,
+    "producer": "compute.googleapis.com"
+  },
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "methodName": "beta.compute.instances.insert",
+    "request": {
+      "@type": "type.googleapis.com/compute.instances.insert"
+    },
+    "requestMetadata": {
+      "callerIp": "57.180.241.185",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36,gzip(gfe),gzip(gfe)"
+    },
+    "resourceName": "projects/testftl-4-6/zones/us-central1-a/instances/instance-20240521-ruitao1",
+    "serviceName": "compute.googleapis.com"
+  },
+  "receiveTimestamp": "2024-05-21T08:34:54.235132578Z",
+  "resource": {
+    "labels": {
+      "instance_id": "4101230614393512521",
+      "project_id": "testftl-4-6",
+      "zone": "us-central1-a"
+    },
+    "type": "gce_instance"
+  },
+  "severity": "NOTICE",
+  "timestamp": "2024-05-21T08:34:53.331544Z"
+}

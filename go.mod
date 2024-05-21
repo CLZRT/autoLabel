@@ -6,6 +6,7 @@ require (
 	cloud.google.com/go/compute v1.27.0
 	github.com/GoogleCloudPlatform/functions-framework-go v1.8.1
 	github.com/cloudevents/sdk-go/v2 v2.14.0
+	github.com/tidwall/gjson v1.17.1
 )
 
 require (
@@ -24,6 +25,8 @@ require (
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
 	github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742 // indirect
+	github.com/tidwall/match v1.1.1 // indirect
+	github.com/tidwall/pretty v1.2.0 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.49.0 // indirect
 	go.opentelemetry.io/otel v1.24.0 // indirect

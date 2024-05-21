@@ -1,0 +1,408 @@
+{
+  "insertId": "-1nityoedvz8g",
+  "labels": {
+    "compute.googleapis.com/root_trigger_id": "3334036f-44bb-46a2-b5ee-0e8cbcac6e42"
+  },
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "first": true,
+    "id": "operation-1716283759720-618f373d4f9cc-07fcb0b1-79e49e1e",
+    "producer": "compute.googleapis.com"
+  },
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com",
+      "principalSubject": "user:zouruitao@ftl-cloud.com"
+    },
+    "authorizationInfo": [
+      {
+        "granted": true,
+        "permission": "compute.instances.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-a/instances/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-a/instances/vm-1",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.disks.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-a/disks/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-a/disks/vm-1",
+          "service": "compute",
+          "type": "compute.disks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.subnetworks.use",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/regions/us-central1/subnetworks/default",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/regions/us-central1/subnetworks/default",
+          "service": "compute",
+          "type": "compute.subnetworks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.subnetworks.useExternalIp",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/regions/us-central1/subnetworks/default",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/regions/us-central1/subnetworks/default",
+          "service": "compute",
+          "type": "compute.subnetworks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.setServiceAccount",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-a/instances/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-a/instances/vm-1",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-b/instances/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-b/instances/vm-1",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.disks.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-b/disks/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-b/disks/vm-1",
+          "service": "compute",
+          "type": "compute.disks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.setServiceAccount",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-b/instances/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-b/instances/vm-1",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-c/instances/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-c/instances/vm-1",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.disks.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-c/disks/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-c/disks/vm-1",
+          "service": "compute",
+          "type": "compute.disks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.setServiceAccount",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-c/instances/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-c/instances/vm-1",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-f/instances/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-f/instances/vm-1",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.disks.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-f/disks/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-f/disks/vm-1",
+          "service": "compute",
+          "type": "compute.disks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.setServiceAccount",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-f/instances/vm-1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-f/instances/vm-1",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-a/instances/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-a/instances/unusedName",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.disks.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-a/disks/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-a/disks/unusedName",
+          "service": "compute",
+          "type": "compute.disks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.setServiceAccount",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-a/instances/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-a/instances/unusedName",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-b/instances/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-b/instances/unusedName",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.disks.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-b/disks/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-b/disks/unusedName",
+          "service": "compute",
+          "type": "compute.disks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.setServiceAccount",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-b/instances/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-b/instances/unusedName",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-c/instances/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-c/instances/unusedName",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.disks.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-c/disks/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-c/disks/unusedName",
+          "service": "compute",
+          "type": "compute.disks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.setServiceAccount",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-c/instances/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-c/instances/unusedName",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-f/instances/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-f/instances/unusedName",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.disks.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-f/disks/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-f/disks/unusedName",
+          "service": "compute",
+          "type": "compute.disks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.setServiceAccount",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-f/instances/unusedName",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-f/instances/unusedName",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      }
+    ],
+    "methodName": "v1.compute.regionInstances.bulkInsert",
+    "request": {
+      "@type": "type.googleapis.com/compute.regionInstances.bulkInsert",
+      "count": "2",
+      "instanceProperties": {
+        "canIpForward": false,
+        "disks": [
+          {
+            "autoDelete": true,
+            "boot": true,
+            "deviceName": "instance-1",
+            "initializeParams": {
+              "diskSizeGb": "40",
+              "diskType": "pd-balanced",
+              "sourceImage": "https://compute.googleapis.com/compute/v1/projects/centos-cloud/global/images/centos-7-v20231115"
+            },
+            "mode": "READ_WRITE",
+            "type": "PERSISTENT"
+          }
+        ],
+        "machineType": "e2-medium",
+        "networkInterfaces": [
+          {
+            "accessConfigs": [
+              {
+                "name": "external-nat",
+                "type": "ONE_TO_ONE_NAT"
+              }
+            ],
+            "network": "https://compute.googleapis.com/compute/v1/projects/testftl-4-6/global/networks/default"
+          }
+        ],
+        "scheduling": {
+          "automaticRestart": true
+        },
+        "serviceAccounts": [
+          {
+            "email": "default",
+            "scopes": [
+              "https://www.googleapis.com/auth/devstorage.read_only",
+              "https://www.googleapis.com/auth/logging.write",
+              "https://www.googleapis.com/auth/monitoring.write",
+              "https://www.googleapis.com/auth/pubsub",
+              "https://www.googleapis.com/auth/service.management.readonly",
+              "https://www.googleapis.com/auth/servicecontrol",
+              "https://www.googleapis.com/auth/trace.append"
+            ]
+          }
+        ]
+      },
+      "minCount": "2",
+      "namePattern": "vm-#"
+    },
+    "requestMetadata": {
+      "callerIp": "104.199.189.91",
+      "callerSuppliedUserAgent": "google-cloud-sdk gcloud/475.0.0 command/gcloud.compute.instances.bulk.create invocation-id/0f67d2803b614df5a9d83bd54c0b92b2 environment/devshell environment-version/None client-os/LINUX client-os-ver/6.1.77 client-pltf-arch/x86_64 interactive/True from-script/False python/3.11.8 term/screen (Linux 6.1.77+),gzip(gfe)",
+      "destinationAttributes": {
+
+      },
+      "requestAttributes": {
+        "auth": {
+
+        },
+        "time": "2024-05-21T09:29:23.437531Z"
+      }
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1"
+      ]
+    },
+    "resourceName": "projects/testftl-4-6/regions/us-central1/instances",
+    "response": {
+      "@type": "type.googleapis.com/operation",
+      "id": "1990883001686415260",
+      "insertTime": "2024-05-21T02:29:23.383-07:00",
+      "name": "operation-1716283759720-618f373d4f9cc-07fcb0b1-79e49e1e",
+      "operationGroupId": "59a83340-2e0c-48f4-97ae-9682f8e0d903",
+      "operationType": "bulkInsert",
+      "progress": "0",
+      "region": "https://www.googleapis.com/compute/v1/projects/testftl-4-6/regions/us-central1",
+      "selfLink": "https://www.googleapis.com/compute/v1/projects/testftl-4-6/regions/us-central1/operations/operation-1716283759720-618f373d4f9cc-07fcb0b1-79e49e1e",
+      "selfLinkWithId": "https://www.googleapis.com/compute/v1/projects/testftl-4-6/regions/us-central1/operations/1990883001686415260",
+      "startTime": "2024-05-21T02:29:23.398-07:00",
+      "status": "RUNNING",
+      "targetId": "748418205778",
+      "targetLink": "https://www.googleapis.com/compute/v1/projects/testftl-4-6",
+      "user": "zouruitao@ftl-cloud.com"
+    },
+    "serviceName": "compute.googleapis.com"
+  },
+  "receiveTimestamp": "2024-05-21T09:29:24.180058548Z",
+  "resource": {
+    "labels": {
+      "method": "compute.regionInstances.bulkInsert",
+      "project_id": "testftl-4-6",
+      "service": "compute.googleapis.com"
+    },
+    "type": "audited_resource"
+  },
+  "severity": "NOTICE",
+  "timestamp": "2024-05-21T09:29:19.767232Z"
+}

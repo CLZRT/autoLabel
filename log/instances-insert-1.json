@@ -1,0 +1,191 @@
+{
+  "insertId": "-g38zg6e2uhcm",
+  "labels": {
+    "compute.googleapis.com/root_trigger_id": "5f1938af-c29e-49cc-a643-372926b392df"
+  },
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "first": true,
+    "id": "operation-1716280485723-618f2b0afbd40-f4da3afe-4f446551",
+    "producer": "compute.googleapis.com"
+  },
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "authorizationInfo": [
+      {
+        "granted": true,
+        "permission": "compute.instances.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-a/instances/instance-20240521-ruitao1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-a/instances/instance-20240521-ruitao1",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.disks.create",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-a/disks/instance-20240521-ruitao1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-a/disks/instance-20240521-ruitao1",
+          "service": "compute",
+          "type": "compute.disks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.subnetworks.use",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/regions/us-central1/subnetworks/default",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/regions/us-central1/subnetworks/default",
+          "service": "compute",
+          "type": "compute.subnetworks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.subnetworks.useExternalIp",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/regions/us-central1/subnetworks/default",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/regions/us-central1/subnetworks/default",
+          "service": "compute",
+          "type": "compute.subnetworks"
+        }
+      },
+      {
+        "granted": true,
+        "permission": "compute.instances.setServiceAccount",
+        "permissionType": "ADMIN_WRITE",
+        "resource": "projects/testftl-4-6/zones/us-central1-a/instances/instance-20240521-ruitao1",
+        "resourceAttributes": {
+          "name": "projects/testftl-4-6/zones/us-central1-a/instances/instance-20240521-ruitao1",
+          "service": "compute",
+          "type": "compute.instances"
+        }
+      }
+    ],
+    "methodName": "beta.compute.instances.insert",
+    "request": {
+      "@type": "type.googleapis.com/compute.instances.insert",
+      "canIpForward": false,
+      "confidentialInstanceConfig": {
+        "enableConfidentialCompute": false
+      },
+      "deletionProtection": false,
+      "description": "",
+      "disks": [
+        {
+          "autoDelete": true,
+          "boot": true,
+          "deviceName": "instance-20240521-ruitao1",
+          "initializeParams": {
+            "diskSizeGb": "10",
+            "diskType": "projects/testftl-4-6/zones/us-central1-a/diskTypes/pd-balanced",
+            "sourceImage": "projects/debian-cloud/global/images/debian-12-bookworm-v20240515"
+          },
+          "mode": "READ_WRITE",
+          "type": "PERSISTENT"
+        }
+      ],
+      "displayDevice": {
+        "enableDisplay": false
+      },
+      "keyRevocationActionType": "NONE_ON_KEY_REVOCATION",
+      "machineType": "projects/testftl-4-6/zones/us-central1-a/machineTypes/e2-medium",
+      "name": "instance-20240521-ruitao1",
+      "networkInterfaces": [
+        {
+          "accessConfigs": [
+            {
+              "name": "External NAT",
+              "networkTier": "PREMIUM"
+            }
+          ],
+          "stackType": "IPV4_ONLY",
+          "subnetwork": "projects/testftl-4-6/regions/us-central1/subnetworks/default"
+        }
+      ],
+      "reservationAffinity": {
+        "consumeReservationType": "ANY_ALLOCATION"
+      },
+      "scheduling": {
+        "automaticRestart": true,
+        "onHostMaintenance": "MIGRATE",
+        "provisioningModel": "STANDARD"
+      },
+      "serviceAccounts": [
+        {
+          "email": "748418205778-compute@developer.gserviceaccount.com",
+          "scopes": [
+            "https://www.googleapis.com/auth/devstorage.read_only",
+            "https://www.googleapis.com/auth/logging.write",
+            "https://www.googleapis.com/auth/monitoring.write",
+            "https://www.googleapis.com/auth/servicecontrol",
+            "https://www.googleapis.com/auth/service.management.readonly",
+            "https://www.googleapis.com/auth/trace.append"
+          ]
+        }
+      ],
+      "shieldedInstanceConfig": {
+        "enableIntegrityMonitoring": true,
+        "enableSecureBoot": false,
+        "enableVtpm": true
+      }
+    },
+    "requestMetadata": {
+      "callerIp": "57.180.241.185",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36,gzip(gfe),gzip(gfe)",
+      "destinationAttributes": {
+
+      },
+      "requestAttributes": {
+        "auth": {
+
+        },
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "time": "2024-05-21T08:34:47.061939Z"
+      }
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1-a"
+      ]
+    },
+    "resourceName": "projects/testftl-4-6/zones/us-central1-a/instances/instance-20240521-ruitao1",
+    "response": {
+      "@type": "type.googleapis.com/operation",
+      "id": "8876092512094249545",
+      "insertTime": "2024-05-21T01:34:46.941-07:00",
+      "name": "operation-1716280485723-618f2b0afbd40-f4da3afe-4f446551",
+      "operationType": "insert",
+      "progress": "0",
+      "selfLink": "https://www.googleapis.com/compute/beta/projects/testftl-4-6/zones/us-central1-a/operations/operation-1716280485723-618f2b0afbd40-f4da3afe-4f446551",
+      "selfLinkWithId": "https://www.googleapis.com/compute/beta/projects/testftl-4-6/zones/us-central1-a/operations/8876092512094249545",
+      "startTime": "2024-05-21T01:34:46.942-07:00",
+      "status": "RUNNING",
+      "targetId": "4101230614393512521",
+      "targetLink": "https://www.googleapis.com/compute/beta/projects/testftl-4-6/zones/us-central1-a/instances/instance-20240521-ruitao1",
+      "user": "zouruitao@ftl-cloud.com",
+      "zone": "https://www.googleapis.com/compute/beta/projects/testftl-4-6/zones/us-central1-a"
+    },
+    "serviceName": "compute.googleapis.com"
+  },
+  "receiveTimestamp": "2024-05-21T08:34:47.1737845Z",
+  "resource": {
+    "labels": {
+      "instance_id": "4101230614393512521",
+      "project_id": "testftl-4-6",
+      "zone": "us-central1-a"
+    },
+    "type": "gce_instance"
+  },
+  "severity": "NOTICE",
+  "timestamp": "2024-05-21T08:34:45.865231Z"
+}
