@@ -1,33 +1,29 @@
 package autolabel
 
 import (
-	"fmt"
 	"log"
 	"regexp"
 	"strings"
 )
 
-// Hello returns a greeting for the named person.
-func labelInstance_insert(logAudit *AuditLogEntry, paths []string) error {
+// construct Labels and Call Label util
+func insertInstanceLabel(logAudit *AuditLogEntry) error {
 
 	payload := logAudit.ProtoPayload
-	creator, ok := payload.AuthenticationInfo["principalEmail"]
-	if !ok {
-		err := fmt.Errorf("principalEmail not found in payload: %v", payload)
-		log.Printf("creator email not found: %s", err)
-		return err
-	}
+	creator := payload.Response.User
+	resourceNameArray := strings.Split(payload.ResourceName, "/")
 	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9_]+")
-	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator.(string)), "_")
+	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "_")
 
 	var labels = map[string]string{
 		"createdBy":    creatorString,
-		"projectId":    paths[2],
-		"zone":         paths[4],
-		"instanceId":   paths[6],
-		"instanceName": paths[6],
+		"projectId":    resourceNameArray[2],
+		"zone":         resourceNameArray[4],
+		"instanceId":   payload.Response.InstanceId,
+		"instanceName": resourceNameArray[6],
 		"machineType":  payload.Request.MachineType,
 	}
+
 	// Set instance's label
 	err := labelOperation(labels)
 	if err != nil {

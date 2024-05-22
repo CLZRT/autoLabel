@@ -48,16 +48,15 @@ func getInstance(projectID, zone, instanceName string) (*computepb.Instance, err
 }
 
 func setInstanceLabel(labels map[string]string, labelFingerprint *string) error {
-	// Create an Instances Client
-	var err error
-	client, err = compute.NewInstancesRESTClient(context.Background())
+	ctx := context.Background()
+	instancesClient, err := compute.NewInstancesRESTClient(ctx)
 	if err != nil {
-		log.Fatalf("Failed to create instances client: %w", err)
+		return fmt.Errorf("instancesClient: %w", err)
 	}
-	defer client.Close()
+	defer instancesClient.Close()
 
 	// Add the labels to the instance
-	_, err = client.SetLabels(context.Background(), &computepb.SetLabelsInstanceRequest{
+	_, err = instancesClient.SetLabels(context.Background(), &computepb.SetLabelsInstanceRequest{
 		Project:  labels["projectId"],
 		Zone:     labels["zone"],
 		Instance: labels["instanceName"],
