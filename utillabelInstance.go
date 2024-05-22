@@ -9,15 +9,15 @@ import (
 )
 
 func labelOperation(labels map[string]string) error {
-	instance, err := getInstance(labels["projectId"], labels["zone"], labels["instanceName"])
+	instance, err := getInstance(labels["project-id"], labels["zone"], labels["instance-name"])
 	if err != nil {
-		log.Printf("instance %s not exist", labels["instanceName"])
+		log.Printf("instance %s not exist", labels["instance-name"])
 		return err
 	}
 	labelFingerprint := instance.GetLabelFingerprint()
 	err = setInstanceLabel(labels, &labelFingerprint)
 	if err != nil {
-		log.Printf("label instance %s not exist", labels["instanceName"])
+		log.Printf("label instance %s not exist", labels["instance-name"])
 		return err
 	}
 	return nil
@@ -57,9 +57,9 @@ func setInstanceLabel(labels map[string]string, labelFingerprint *string) error 
 
 	// Add the labels to the instance
 	_, err = instancesClient.SetLabels(context.Background(), &computepb.SetLabelsInstanceRequest{
-		Project:  labels["projectId"],
+		Project:  labels["project-id"],
 		Zone:     labels["zone"],
-		Instance: labels["instanceName"],
+		Instance: labels["instance-name"],
 		InstancesSetLabelsRequestResource: &computepb.InstancesSetLabelsRequest{
 			LabelFingerprint: labelFingerprint,
 			Labels:           labels,

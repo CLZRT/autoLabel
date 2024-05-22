@@ -14,15 +14,21 @@ func insertInstanceLabel(logAudit *AuditLogEntry) error {
 	resourceNameArray := strings.Split(payload.ResourceName, "/")
 	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9_]+")
 	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "_")
+	log.Printf("creator:" + creatorString)
+	log.Printf("resourceNameArray:" + payload.ResourceName)
+	log.Printf("instanceName:" + resourceNameArray[5])
+	log.Printf("instanceId:" + payload.Response.InstanceId)
+	log.Printf("machine-type:" + payload.Request.MachineType)
 
-	var labels = map[string]string{
-		"createdBy":    creatorString,
-		"projectId":    resourceNameArray[2],
-		"zone":         resourceNameArray[4],
-		"instanceId":   payload.Response.InstanceId,
-		"instanceName": resourceNameArray[6],
-		"machineType":  payload.Request.MachineType,
+	labels := map[string]string{
+		"created-by":    creatorString,
+		"project-id":    resourceNameArray[1],
+		"zone":          resourceNameArray[3],
+		"instance-id":   payload.Response.InstanceId,
+		"instance-name": resourceNameArray[5],
+		"machine-type":  resourceNameArray[5],
 	}
+	log.Printf("instance-name" + labels["instance-name"])
 
 	// Set instance's label
 	err := labelOperation(labels)
@@ -30,7 +36,7 @@ func insertInstanceLabel(logAudit *AuditLogEntry) error {
 		log.Println(err)
 		return err
 	}
-	log.Printf("The inserted instance %s has been  labeled successfully", paths[6])
+	log.Printf("The inserted instance %s has been  labeled successfully", resourceNameArray[5])
 	return nil
 
 }

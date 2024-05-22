@@ -9,12 +9,6 @@ import (
 	"log"
 )
 
-/**
-todo: 1.created-by info extract {payload.response.user)
-todo: 2.instanceId
-todo: 3.methodName
-todo: 4.Operation
-*/
 // MessagePublishedData contains the full Pub/Sub message
 // See the documentation for more details:
 // https://cloud.google.com/eventarc/docs/cloudevents#pubsub
@@ -88,7 +82,7 @@ func labelGceInstance(ctx context.Context, ev event.Event) error {
 	} else {
 		switch logInfo.ProtoPayload.Response.OperationType {
 		case "insert":
-			err := labelinstanceInsert(logInfo)
+			err := insertInstanceLabel(logInfo)
 			if err != nil {
 				log.Printf("Error labeling instance: %s", err)
 				return err
