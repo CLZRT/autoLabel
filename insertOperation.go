@@ -12,6 +12,7 @@ func insertInstanceLabel(logAudit *AuditLogEntry) error {
 	payload := logAudit.ProtoPayload
 	creator := payload.Response.User
 	resourceNameArray := strings.Split(payload.ResourceName, "/")
+	machineTypeArray := strings.Split(payload.Request.MachineType, "/")
 	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9_]+")
 	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "_")
 	log.Printf("creator:" + creatorString)
@@ -26,7 +27,7 @@ func insertInstanceLabel(logAudit *AuditLogEntry) error {
 		"zone":          resourceNameArray[3],
 		"instance-id":   payload.Response.InstanceId,
 		"instance-name": resourceNameArray[5],
-		"machine-type":  resourceNameArray[5],
+		"machine-type":  machineTypeArray[5],
 	}
 	log.Printf("instance-name" + labels["instance-name"])
 
