@@ -7,6 +7,7 @@ import (
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	"github.com/cloudevents/sdk-go/v2/event"
 	"log"
+	"strings"
 )
 
 // MessagePublishedData contains the full Pub/Sub message
@@ -27,15 +28,17 @@ type PubSubMessage struct {
 // https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry
 type AuditLogEntry struct {
 	ProtoPayload *AuditLogProtoPayload `json:"protoPayload"`
+	Resource     *AuditResource        `json:"resource"`
 }
 
 // AuditLogProtoPayload represents AuditLog within the LogEntry.protoPayload
 // See https://cloud.google.com/logging/docs/reference/audit/auditlog/rest/Shared.Types/AuditLog
 type AuditLogProtoPayload struct {
-	MethodName   string         `json:"methodName"`
-	Request      *AuditRequest  `json:"request"`
-	ResourceName string         `json:"resourceName"`
-	Response     *AuditResponse `json:"response"`
+	MethodName     string         `json:"methodName"`
+	Request        *AuditRequest  `json:"request"`
+	PrincipalEmail string         `json:"authenticationInfo.principalEmail"`
+	ResourceName   string         `json:"resourceName"`
+	Response       *AuditResponse `json:"response"`
 }
 type AuditRequest struct {
 	MachineType string `json:"machineType"`
@@ -45,6 +48,15 @@ type AuditResponse struct {
 	InstanceId    string `json:"targetId"`
 	User          string `json:"user"`
 	OperationType string `json:"operationType"`
+}
+type AuditResource struct {
+	Labels *AuditResourceLabels `json:"labels"`
+	Type   string               `json:"type"`
+}
+type AuditResourceLabels struct {
+	InstanceId string `json:"instance_id"`
+	ProjectId  string `json:"project_id"`
+	Zone       string `json:"zone"`
 }
 
 func init() {
@@ -76,31 +88,42 @@ func labelGceInstance(ctx context.Context, ev event.Event) error {
 	}
 
 	// switch into which function
-	if logInfo.ProtoPayload.Response == nil {
-		log.Printf("Excluded this message, cause no response")
-		return nil
-	} else {
-		switch logInfo.ProtoPayload.Response.OperationType {
-		case "insert":
-			err := insertInstanceLabel(logInfo)
+	methodArray := strings.Split(logInfo.ProtoPayload.MethodName, ".")
+	switch methodArray[len(methodArray)-1] {
+	case "insert":
+		if logInfo.ProtoPayload.Response == nil {
+			log.Printf("Excluded this message, cause no response")
+			return nil
+		} else {
+			err := singleInstance(logInfo)
 			if err != nil {
-				log.Printf("Error labeling instance: %s", err)
+				log.Printf("insert: Error labeling instance: %s", err)
 				return err
 			}
-		case "setMachineType":
-			err := labelInstance_update(logInfo)
-			if err != nil {
-				log.Printf("Error labeling instance: %s", err)
-				return err
-			}
-		case "bulkInsert":
-			err := labelInstance_bulkInsert(logInfo)
-			if err != nil {
-				log.Printf("Error labeling instance: %s", err)
-				return err
-			}
-
 		}
+	case "setMachineType":
+		if logInfo.ProtoPayload.Response == nil {
+			log.Printf("Excluded this message, cause no response")
+			return nil
+		} else {
+			err := singleInstance(logInfo)
+			if err != nil {
+				log.Printf("setMachineType: Error labeling instance: %s", err)
+				return err
+			}
+		}
+	case "bulkInsert":
+		if logInfo.Resource.Labels.InstanceId == "" {
+			log.Printf("Excluded this message, cause no instanceId")
+			return nil
+		} else {
+			err := multiInstance(logInfo)
+			if err != nil {
+				log.Printf("bulkInsert: Error labeling instance: %s", err)
+				return err
+			}
+		}
+
 	}
 
 	return nil
