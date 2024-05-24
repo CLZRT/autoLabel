@@ -1,13 +1,14 @@
-package autolabel
+package gce
 
 import (
+	"autolabel/logstruct"
 	"log"
 	"regexp"
 	"strings"
 )
 
 // construct Labels and Call Label util
-func singleInstance(logAudit *AuditLogEntry) error {
+func SingleInstance(logAudit *logstruct.AuditLogEntry) error {
 	// Get Instance
 	instance, err := getInstance(logAudit.Resource.Labels)
 	if err != nil {
@@ -42,7 +43,7 @@ func singleInstance(logAudit *AuditLogEntry) error {
 
 }
 
-func multiInstance(logAudit *AuditLogEntry) error {
+func MultiInstance(logAudit *logstruct.AuditLogEntry) error {
 
 	// Get instance
 	instance, err := getInstance(logAudit.Resource.Labels)
@@ -53,10 +54,10 @@ func multiInstance(logAudit *AuditLogEntry) error {
 	}
 
 	// extra info from log
-	creator := logAudit.ProtoPayload.PrincipalEmail
+	creator := logAudit.ProtoPayload.AuthenticationInfo.PrincipalEmail
 	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9_]+")
 	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "_")
-	instanceId := logAudit.Resource.Labels.InstanceId
+	instanceId := logAudit.Resource.Labels.ResourceId
 
 	// setLabel
 	labelFingerprint := instance.GetLabelFingerprint()

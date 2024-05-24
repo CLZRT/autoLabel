@@ -1,6 +1,7 @@
-package autolabel
+package gce
 
 import (
+	"autolabel/logstruct"
 	compute "cloud.google.com/go/compute/apiv1"
 	"cloud.google.com/go/compute/apiv1/computepb"
 	"context"
@@ -8,7 +9,7 @@ import (
 )
 
 // getInstance prints a name of a VM instance in the given zone in the specified project.
-func getInstance(resourceLabels *AuditResourceLabels) (*computepb.Instance, error) {
+func getInstance(resourceLabels *logstruct.AuditResourceLabels) (*computepb.Instance, error) {
 
 	ctx := context.Background()
 	instancesClient, err := compute.NewInstancesRESTClient(ctx)
@@ -19,7 +20,7 @@ func getInstance(resourceLabels *AuditResourceLabels) (*computepb.Instance, erro
 	reqInstance := &computepb.GetInstanceRequest{
 		Project:  resourceLabels.ProjectId,
 		Zone:     resourceLabels.Zone,
-		Instance: resourceLabels.InstanceId,
+		Instance: resourceLabels.ResourceId,
 	}
 
 	instance, err := instancesClient.Get(ctx, reqInstance)
@@ -30,7 +31,7 @@ func getInstance(resourceLabels *AuditResourceLabels) (*computepb.Instance, erro
 	return instance, nil
 }
 
-func setInstanceLabel(resourceLabels *AuditResourceLabels, labels map[string]string, labelFingerprint *string) error {
+func setInstanceLabel(resourceLabels *logstruct.AuditResourceLabels, labels map[string]string, labelFingerprint *string) error {
 	ctx := context.Background()
 	instancesClient, err := compute.NewInstancesRESTClient(ctx)
 	if err != nil {
@@ -42,7 +43,7 @@ func setInstanceLabel(resourceLabels *AuditResourceLabels, labels map[string]str
 	_, err = instancesClient.SetLabels(context.Background(), &computepb.SetLabelsInstanceRequest{
 		Project:  resourceLabels.ProjectId,
 		Zone:     resourceLabels.Zone,
-		Instance: resourceLabels.InstanceId,
+		Instance: resourceLabels.ResourceId,
 		InstancesSetLabelsRequestResource: &computepb.InstancesSetLabelsRequest{
 			LabelFingerprint: labelFingerprint,
 			Labels:           labels,
