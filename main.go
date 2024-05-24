@@ -34,11 +34,11 @@ type AuditLogEntry struct {
 // AuditLogProtoPayload represents AuditLog within the LogEntry.protoPayload
 // See https://cloud.google.com/logging/docs/reference/audit/auditlog/rest/Shared.Types/AuditLog
 type AuditLogProtoPayload struct {
-	MethodName     string         `json:"methodName"`
-	Request        *AuditRequest  `json:"request"`
-	PrincipalEmail string         `json:"authenticationInfo.principalEmail"`
-	ResourceName   string         `json:"resourceName"`
-	Response       *AuditResponse `json:"response"`
+	MethodName     string                   `json:"methodName"`
+	Request        *AuditRequest            `json:"request"`
+	PrincipalEmail *AuditAuthenticationInfo `json:"authenticationInfo"`
+	ResourceName   string                   `json:"resourceName"`
+	Response       *AuditResponse           `json:"response"`
 }
 type AuditRequest struct {
 	MachineType string `json:"machineType"`
@@ -57,6 +57,9 @@ type AuditResourceLabels struct {
 	InstanceId string `json:"instance_id"`
 	ProjectId  string `json:"project_id"`
 	Zone       string `json:"zone"`
+}
+type AuditAuthenticationInfo struct {
+	PrincipalEmail string `json:"principalEmail"`
 }
 
 func init() {
