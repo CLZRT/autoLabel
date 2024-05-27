@@ -2,12 +2,12 @@ package gce
 
 import (
 	"autolabel/logstruct"
+	"autolabel/storage/disk"
 	"log"
 	"regexp"
 	"strings"
 )
 
-// construct Labels and Call Label util
 func SingleInstance(logAudit *logstruct.AuditLogEntry) error {
 	// Get Instance
 	instance, err := getInstance(logAudit.Resource.Labels)
@@ -21,10 +21,10 @@ func SingleInstance(logAudit *logstruct.AuditLogEntry) error {
 	resourceNameArray := strings.Split(payload.ResourceName, "/")
 	machineTypeArray := strings.Split(payload.Request.MachineType, "/")
 	creator := payload.Response.User
-	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9_]+")
-	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "_")
+	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9-]+")
+	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "-")
 
-	// Set Label
+	// Set Instance's Label
 	labels := map[string]string{
 		"created-by":    creatorString,
 		"instance-id":   payload.Response.InstanceId,
@@ -39,6 +39,27 @@ func SingleInstance(logAudit *logstruct.AuditLogEntry) error {
 	}
 	log.Printf("The inserted instance %s has been  labeled successfully", instance.GetName())
 
+	// Set Disk's Label
+	disks := instance.GetDisks()
+	for _, diskInfo := range disks {
+		diskName := diskInfo.GetDeviceName()
+
+		resourceLabels := logstruct.AuditResourceLabels{
+			ProjectId:  logAudit.Resource.Labels.ProjectId,
+			Zone:       logAudit.Resource.Labels.Zone,
+			ResourceId: diskName,
+		}
+		getDisk, err := disk.GetDisk(&resourceLabels)
+		if err != nil {
+			return err
+		}
+		fingerprint := getDisk.GetLabelFingerprint()
+		err = disk.SetDiskLabel(&resourceLabels, labels, &fingerprint)
+		if err != nil {
+			return err
+		}
+
+	}
 	return nil
 
 }
@@ -55,11 +76,11 @@ func MultiInstance(logAudit *logstruct.AuditLogEntry) error {
 
 	// extra info from log
 	creator := logAudit.ProtoPayload.AuthenticationInfo.PrincipalEmail
-	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9_]+")
-	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "_")
+	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9-]+")
+	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "-")
 	instanceId := logAudit.Resource.Labels.ResourceId
 
-	// setLabel
+	// setInstanceLabel
 	labelFingerprint := instance.GetLabelFingerprint()
 	labels := map[string]string{
 		"created-by":    creatorString,
@@ -73,6 +94,29 @@ func MultiInstance(logAudit *logstruct.AuditLogEntry) error {
 		return err
 	}
 	log.Printf("The inserted instance %s has been  labeled successfully", instance.GetName())
+
+	// Set Disk's Label
+	disks := instance.GetDisks()
+	for _, diskInfo := range disks {
+		diskName := diskInfo.GetDeviceName()
+
+		resourceLabels := logstruct.AuditResourceLabels{
+			ProjectId:  logAudit.Resource.Labels.ProjectId,
+			Zone:       logAudit.Resource.Labels.Zone,
+			ResourceId: diskName,
+		}
+		getDisk, err := disk.GetDisk(&resourceLabels)
+		if err != nil {
+			return err
+		}
+		fingerprint := getDisk.GetLabelFingerprint()
+		err = disk.SetDiskLabel(&resourceLabels, labels, &fingerprint)
+		if err != nil {
+			return err
+		}
+		log.Printf("The inserted instance's disk %s has been  labeled successfully", diskName)
+
+	}
 	return nil
 
 }

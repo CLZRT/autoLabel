@@ -1,7 +1,7 @@
 package main
 
 import (
-	"autolabel/compute/instance"
+	"autolabel/compute/gce"
 	"autolabel/logstruct"
 	"context"
 	"encoding/json"
@@ -95,7 +95,7 @@ func labelGceInstance(ev event.Event) error {
 			log.Printf("Excluded this message, cause no response")
 			return nil
 		} else {
-			err := instance.SingleInstance(logInfo)
+			err := gce.SingleInstance(logInfo)
 			if err != nil {
 				log.Printf("insert: Error labeling instance: %s", err)
 				return err
@@ -106,7 +106,7 @@ func labelGceInstance(ev event.Event) error {
 			log.Printf("Excluded this message, cause no response")
 			return nil
 		} else {
-			err := instance.SingleInstance(logInfo)
+			err := gce.SingleInstance(logInfo)
 			if err != nil {
 				log.Printf("setMachineType: Error labeling instance: %s", err)
 				return err
@@ -117,7 +117,7 @@ func labelGceInstance(ev event.Event) error {
 			log.Printf("Excluded this message, cause no instanceId")
 			return nil
 		} else {
-			err := instance.MultiInstance(logInfo)
+			err := gce.MultiInstance(logInfo)
 			if err != nil {
 				log.Printf("bulkInsert: Error labeling instance: %s", err)
 				return err

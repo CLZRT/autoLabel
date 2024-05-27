@@ -1,7 +1,9 @@
 go 1.22.3
 
 use (
+	./compute/dataproc
 	./compute/gce
+	./compute/gke
 	./logstruct
 	./main
 	./storage/disk

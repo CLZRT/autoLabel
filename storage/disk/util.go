@@ -8,7 +8,7 @@ import (
 	"fmt"
 )
 
-func getDisk(resourceLabels *logstruct.AuditResourceLabels) (*computepb.Disk, error) {
+func GetDisk(resourceLabels *logstruct.AuditResourceLabels) (*computepb.Disk, error) {
 	ctx := context.Background()
 	diskClient, err := compute.NewDisksRESTClient(ctx)
 	if err != nil {
@@ -29,7 +29,7 @@ func getDisk(resourceLabels *logstruct.AuditResourceLabels) (*computepb.Disk, er
 
 }
 
-func setDiskLabel(
+func SetDiskLabel(
 	resourceLabels *logstruct.AuditResourceLabels,
 	labels map[string]string, labelFingerprint *string) error {
 
