@@ -7,16 +7,15 @@ import (
 	"context"
 )
 
-func getCluster(resourceLabel *logstruct.AuditResourceLabels) (*containerpb.Cluster, error) {
+func GetCluster(protoPayload *logstruct.AuditLogProtoPayload) (*containerpb.Cluster, error) {
 	ctx := context.Background()
 	client, err := container.NewClusterManagerClient(ctx)
 	if err != nil {
 		return nil, err
 	}
 	getRequest := containerpb.GetClusterRequest{
-		ProjectId: resourceLabel.ProjectId,
-		Zone:      resourceLabel.Zone,
-		ClusterId: resourceLabel.ResourceId,
+		// Specified in the format `projects/*/locations/*/clusters/*`.
+		Name: protoPayload.ResourceName,
 	}
 	cluster, err := client.GetCluster(ctx, &getRequest)
 	if err != nil {
@@ -25,19 +24,16 @@ func getCluster(resourceLabel *logstruct.AuditResourceLabels) (*containerpb.Clus
 	return cluster, nil
 }
 
-func setLabel(resourceLabel *logstruct.AuditResourceLabels, cluster *containerpb.Cluster, labels map[string]string) error {
+func SetLabel(resourceName string, cluster *containerpb.Cluster, labels map[string]string) error {
 	ctx := context.Background()
 	client, err := container.NewClusterManagerClient(ctx)
 	if err != nil {
 		return err
 	}
 	setLabelRequest := containerpb.SetLabelsRequest{
-		ProjectId:        resourceLabel.ProjectId,
-		Zone:             cluster.Zone,
-		ClusterId:        cluster.Id,
 		ResourceLabels:   labels,
-		LabelFingerprint: "",
-		Name:             "",
+		LabelFingerprint: cluster.GetLabelFingerprint(),
+		Name:             resourceName,
 	}
 	_, err = client.SetLabels(ctx, &setLabelRequest)
 	if err != nil {

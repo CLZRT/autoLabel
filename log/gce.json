@@ -1,0 +1,20 @@
+{
+  "insertId": "0",
+  "jsonPayload": {
+    "bootCounter": "1",
+    "startupEvent": {},
+    "@type": "type.googleapis.com/cloud_integrity.IntegrityEvent"
+  },
+  "resource": {
+    "type": "gce_instance",
+    "labels": {
+      "instance_id": "3802500430479067669",
+      "zone": "us-central1-a",
+      "project_id": "testftl-5-7"
+    }
+  },
+  "timestamp": "2024-05-27T07:23:44.716147590Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-5-7/logs/compute.googleapis.com%2Fshielded_vm_integrity",
+  "receiveTimestamp": "2024-05-27T07:23:46.731923333Z"
+}

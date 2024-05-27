@@ -36,18 +36,19 @@ func labelResource(ctx context.Context, ev event.Event) error {
 		log.Printf("Error parsing proto payload: %s", err)
 	}
 	/**
-	todo: 1.Persistent Disk
-	todo: 2.FileStore
-	todo: 3.cloudStorage
-	todo: 4.CloudSQL
+	todo: 1.Persistent Disk "gce_disk"
+	todo: 2.FileStore "audited_resource"
+	todo: 3.cloudStorage "gcs_bucket"
+	todo: 4.CloudSQL "cloudsql_database"
 	todo: 5.SSD
 	todo: 6.MemoryStore
-	todo: 7.Dataproc
-	todo: 8.patchWork
+	todo: 7.Dataproc "gce_project"
+	todo: 8.patchWork 不支持
 	todo: 9.VPC Network
-	todo: 10,GKE
+	todo: 10,GKE "k8s_cluster"
 	todo: 11.Artifact Registry
 	todo: 12.KMS
+	todo: 13 GCE "gce_instance"
 	*/
 	switch logInfo.Resource.Type {
 	case "gce_instance":
@@ -113,7 +114,7 @@ func labelGceInstance(ev event.Event) error {
 			}
 		}
 	case "bulkInsert":
-		if logInfo.Resource.Labels.InstanceId == "" {
+		if logInfo.Resource.Labels.ResourceId == "" {
 			log.Printf("Excluded this message, cause no instanceId")
 			return nil
 		} else {

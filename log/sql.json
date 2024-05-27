@@ -1,0 +1,111 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "chenzeming@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "18.163.77.27",
+      "requestAttributes": {
+        "time": "2024-05-27T06:54:18.235295Z",
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "cloudsql.googleapis.com",
+    "methodName": "cloudsql.instances.create",
+    "authorizationInfo": [
+      {
+        "resource": "projects/testftl-5-7",
+        "permission": "cloudsql.instances.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "sqladmin.googleapis.com",
+          "name": "projects/testftl-5-7/instances/czm1",
+          "type": "sqladmin.googleapis.com/Instance"
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-5-7",
+    "request": {
+      "requestId": "d47a91bb-7f1a-4c01-8415-06bdd7fa9f65",
+      "project": "testftl-5-7",
+      "body": {
+        "databaseVersion": "MYSQL_8_0_31",
+        "settings": {
+          "tier": "db-custom-1-3840",
+          "userLabels": {
+            "test": "1"
+          },
+          "availabilityType": "ZONAL",
+          "activationPolicy": "ALWAYS",
+          "ipConfiguration": {
+            "ipv4Enabled": false,
+            "privateNetwork": "projects/testftl-5-7/global/networks/default"
+          },
+          "storageAutoResize": true,
+          "locationPreference": {},
+          "dataDiskType": "PD_SSD",
+          "maintenanceWindow": {},
+          "backupConfiguration": {
+            "startTime": "10:00",
+            "enabled": true,
+            "binaryLogEnabled": true,
+            "location": "us",
+            "transactionLogRetentionDays": 7,
+            "backupRetentionSettings": {
+              "retainedBackups": 7
+            }
+          },
+          "dataDiskSizeGb": "10",
+          "insightsConfig": {},
+          "deletionProtectionEnabled": true,
+          "dataCacheConfig": {},
+          "edition": "ENTERPRISE"
+        },
+        "instanceType": "CLOUD_SQL_INSTANCE",
+        "project": "testftl-5-7",
+        "backendType": "SECOND_GEN",
+        "name": "czm1",
+        "region": "us-central1",
+        "instanceUid": "1-f4f20d15-e592-4e90-8dcd-565aed87f324"
+      },
+      "@type": "type.googleapis.com/google.cloud.sql.v1beta4.SqlInstancesInsertRequest"
+    },
+    "response": {
+      "insertTime": "2024-05-27T06:54:18.184Z",
+      "targetId": "czm1",
+      "kind": "sql#operation",
+      "targetLink": "https://www.googleapis.com/sql/v1beta4/projects/testftl-5-7/instances/czm1",
+      "name": "24135665-b390-42cd-b796-724c00000032",
+      "operationType": "CREATE",
+      "targetProject": "testftl-5-7",
+      "user": "chenzeming@ftl-cloud.com",
+      "instanceUid": "1-f4f20d15-e592-4e90-8dcd-565aed87f324",
+      "status": "PENDING",
+      "selfLink": "https://www.googleapis.com/sql/v1beta4/projects/testftl-5-7/operations/24135665-b390-42cd-b796-724c00000032",
+      "@type": "type.googleapis.com/google.cloud.sql.v1beta4.Operation"
+    }
+  },
+  "insertId": "-tcdgueg9ofd",
+  "resource": {
+    "type": "cloudsql_database",
+    "labels": {
+      "project_id": "testftl-5-7",
+      "region": "us-central1",
+      "database_id": "testftl-5-7:czm1"
+    }
+  },
+  "timestamp": "2024-05-27T06:54:17.295920Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-5-7/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "24135665-b390-42cd-b796-724c00000032",
+    "producer": "cloudsql.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2024-05-27T06:54:19.210352125Z"
+}
