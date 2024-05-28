@@ -50,15 +50,53 @@ func labelResource(ctx context.Context, ev event.Event) error {
 	todo: 12.KMS
 	todo: 13 GCE "gce_instance"
 	*/
-	switch logInfo.Resource.Type {
-	case "gce_instance":
-		err := labelGceInstance(ev)
-		if err != nil {
-			return err
-		}
+	// switch into which function
+	methodArray := strings.Split(logInfo.ProtoPayload.MethodName, ".")
+	switch methodArray[len(methodArray)-3] {
+	case "compute":
+		switch methodArray[len(methodArray)-2] {
+		case "instances":
+			switch methodArray[len(methodArray)-1] {
+			case "insert":
+				if logInfo.ProtoPayload.Response == nil {
+					log.Printf("Excluded this message, cause no response")
+					return nil
+				} else {
+					err := gce.SingleInstance(logInfo)
+					if err != nil {
+						log.Printf("insert: Error labeling instance: %s", err)
+						return err
+					}
+				}
+			case "setMachineType":
+				if logInfo.ProtoPayload.Response == nil {
+					log.Printf("Excluded this message, cause no response")
+					return nil
+				} else {
+					err := gce.SingleInstance(logInfo)
+					if err != nil {
+						log.Printf("setMachineType: Error labeling instance: %s", err)
+						return err
+					}
+				}
+			case "bulkInsert":
+				if logInfo.Resource.Labels.ResourceId == "" {
+					log.Printf("Excluded this message, cause no instanceId")
+					return nil
+				} else {
+					err := gce.MultiInstance(logInfo)
+					if err != nil {
+						log.Printf("bulkInsert: Error labeling instance: %s", err)
+						return err
+					}
+				}
+			}
+		case "projects":
+			switch methodArray[len(methodArray)-1] {
 
-		//
-		//
+			}
+		}
+	case "cloudsql":
 
 	}
 	return nil
