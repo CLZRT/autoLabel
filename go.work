@@ -4,6 +4,9 @@ use (
 	./compute/dataproc
 	./compute/gce
 	./compute/gke
+	./database/bigquery
+	./database/memory
+	./database/sql
 	./logstruct
 	./main
 	./storage/disk

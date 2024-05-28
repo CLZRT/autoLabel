@@ -33,16 +33,12 @@ func SetLabelCluster(cluster *dataprocpb.Cluster, labels map[string]string) erro
 		return err
 	}
 	updateRequest := dataprocpb.UpdateClusterRequest{
+		ProjectId:   cluster.ProjectId,
+		ClusterName: cluster.ClusterName,
 		Cluster: &dataprocpb.Cluster{
-			ProjectId:            cluster.ProjectId,
-			ClusterName:          cluster.ClusterName,
-			Config:               cluster.Config,
-			VirtualClusterConfig: cluster.VirtualClusterConfig,
-			Labels:               labels,
-			Status:               cluster.Status,
-			StatusHistory:        cluster.StatusHistory,
-			ClusterUuid:          cluster.ClusterUuid,
-			Metrics:              cluster.Metrics,
+			ProjectId: cluster.ProjectId,
+
+			Labels: labels,
 		},
 	}
 	_, err = client.UpdateCluster(ctx, &updateRequest)
