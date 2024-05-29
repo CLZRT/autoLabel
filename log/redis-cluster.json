@@ -1,0 +1,76 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "::1",
+      "requestAttributes": {
+        "time": "2024-05-29T01:30:50.718066411Z",
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "redis.googleapis.com",
+    "methodName": "google.cloud.redis.cluster.v1alpha1.CloudRedisCluster.CreateCluster",
+    "authorizationInfo": [
+      {
+        "resource": "projects/testftl-4-6/locations/us-central1/clusters/test-cluster",
+        "permission": "redis.clusters.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "redis.googleapis.com",
+          "name": "projects/testftl-4-6/locations/us-central1/clusters/test-cluster"
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-4-6/locations/us-central1/clusters/test-cluster",
+    "request": {
+      "@type": "type.googleapis.com/google.cloud.redis.cluster.v1alpha1.CreateClusterRequest",
+      "parent": "projects/testftl-4-6/locations/us-central1",
+      "cluster_id": "test-cluster",
+      "cluster": {
+        "transit_encryption_mode": "TRANSIT_ENCRYPTION_MODE_SERVER_AUTHENTICATION",
+        "shard_count": 10,
+        "psc_configs": [
+          {
+            "network": "projects/testftl-4-6/global/networks/default"
+          }
+        ],
+        "node_type": "REDIS_SHARED_CORE_NANO",
+        "replica_count": 1,
+        "authorization_mode": "AUTH_MODE_IAM_AUTH"
+      }
+    },
+    "response": {
+      "@type": "type.googleapis.com/google.longrunning.Operation"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1"
+      ]
+    }
+  },
+  "insertId": "1sxriiudf9vp",
+  "resource": {
+    "type": "audited_resource",
+    "labels": {
+      "service": "redis.googleapis.com",
+      "method": "google.cloud.redis.cluster.v1alpha1.CloudRedisCluster.CreateCluster",
+      "project_id": "testftl-4-6"
+    }
+  },
+  "timestamp": "2024-05-29T01:30:50.827687798Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "projects/testftl-4-6/locations/us-central1/operations/operation-1716946250723-6198db35f7239-db47dc39-97568991",
+    "producer": "redis.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2024-05-29T01:30:51.433847802Z"
+}

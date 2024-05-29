@@ -1,0 +1,58 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {
+      "code": 292
+    },
+    "authenticationInfo": {
+      "principalEmail": "chenzeming@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "18.163.77.27",
+      "requestAttributes": {
+        "time": "2024-05-27T06:47:04.781518Z",
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "auth": {
+
+        }
+      },
+      "destinationAttributes": {
+
+      }
+    },
+    "serviceName": "cloudsql.googleapis.com",
+    "methodName": "cloudsql.instances.create",
+    "authorizationInfo": [
+      {
+        "resource": "projects/testftl-4-6",
+        "permission": "cloudsql.instances.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "sqladmin.googleapis.com",
+          "name": "projects/testftl-4-6/instances/zemign",
+          "type": "sqladmin.googleapis.com/Instance"
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-4-6"
+  },
+  "insertId": "e5sbcue51iqg",
+  "resource": {
+    "type": "cloudsql_database",
+    "labels": {
+      "project_id": "testftl-4-6",
+      "database_id": "",
+      "region": ""
+    }
+  },
+  "timestamp": "2024-05-27T06:47:10.243742Z",
+  "severity": "ERROR",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "0e4038b8-1b50-437c-b972-762300000032",
+    "producer": "cloudsql.googleapis.com",
+    "last": true
+  },
+  "receiveTimestamp": "2024-05-27T06:47:10.444280025Z"
+}

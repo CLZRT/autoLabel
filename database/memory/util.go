@@ -13,6 +13,7 @@ func GetMemoryStore(resourceName string) (*redispb.Instance, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer client.Close()
 	getRequest := redispb.GetInstanceRequest{
 		// `projects/{project_id}/locations/{location_id}/instances/{instance_id}`
 		Name: resourceName,
@@ -31,11 +32,15 @@ func SetLabelMemoryStore(instance *redispb.Instance, labels map[string]string) e
 	if err != nil {
 		return err
 	}
-
+	defer client.Close()
 	instance.Labels = labels
-	paths := []string{"label"}
+	paths := []string{"labels"}
 	updateRequest := redispb.UpdateInstanceRequest{
-
+		//   - `displayName`
+		//   - `labels`
+		//   - `memorySizeGb`
+		//   - `redisConfig`
+		//   - `replica_count`
 		UpdateMask: &fieldmaskpb.FieldMask{Paths: paths},
 		Instance:   instance,
 	}

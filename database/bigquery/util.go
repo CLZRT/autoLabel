@@ -14,7 +14,7 @@ func GetDataset(resource *logstruct.AuditResourceLabels) (client *bigquery.Datas
 	}
 	defer newClient.Close()
 
-	dataset := newClient.Dataset(resource.ResourceId)
+	dataset := newClient.Dataset(resource.InstanceId)
 	return dataset, nil
 }
 

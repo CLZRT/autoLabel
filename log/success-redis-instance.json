@@ -1,0 +1,75 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "::1",
+      "requestAttributes": {
+        "time": "2024-05-29T01:47:19.308404811Z",
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "redis.googleapis.com",
+    "methodName": "google.cloud.redis.v1.CloudRedis.CreateInstance",
+    "authorizationInfo": [
+      {
+        "resource": "projects/testftl-4-6/locations/us-central1/instances/test-redis-instance",
+        "permission": "redis.instances.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "redis.googleapis.com",
+          "name": "projects/testftl-4-6/locations/us-central1/instances/test-redis-instance"
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-4-6/locations/us-central1/instances/test-redis-instance",
+    "request": {
+      "instance_id": "test-redis-instance",
+      "instance": {
+        "memory_size_gb": 16,
+        "authorized_network": "projects/testftl-4-6/global/networks/gke-network-ruitao",
+        "connect_mode": "DIRECT_PEERING",
+        "transit_encryption_mode": "DISABLED",
+        "persistence_config": {
+          "persistence_mode": "DISABLED"
+        },
+        "redis_version": "REDIS_7_0",
+        "tier": "BASIC"
+      },
+      "@type": "type.googleapis.com/google.cloud.redis.v1.CreateInstanceRequest",
+      "parent": "projects/testftl-4-6/locations/us-central1"
+    },
+    "response": {
+      "@type": "type.googleapis.com/google.longrunning.Operation"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1"
+      ]
+    }
+  },
+  "insertId": "1yrc17pd7a4u",
+  "resource": {
+    "type": "audited_resource",
+    "labels": {
+      "method": "google.cloud.redis.v1.CloudRedis.CreateInstance",
+      "project_id": "testftl-4-6",
+      "service": "redis.googleapis.com"
+    }
+  },
+  "timestamp": "2024-05-29T01:47:19.521104302Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "projects/testftl-4-6/locations/us-central1/operations/operation-1716947239313-6198dee4c20a2-e701f521-c8844924",
+    "producer": "redis.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2024-05-29T01:47:20.320255825Z"
+}
