@@ -1,14 +1,13 @@
 package disk
 
 import (
-	"autolabel/logstruct"
 	compute "cloud.google.com/go/compute/apiv1"
 	"cloud.google.com/go/compute/apiv1/computepb"
 	"context"
 	"fmt"
 )
 
-func GetDisk(resourceLabels *logstruct.AuditResourceLabels) (*computepb.Disk, error) {
+func GetDisk(resourceLocation map[string]string) (*computepb.Disk, error) {
 	ctx := context.Background()
 	diskClient, err := compute.NewDisksRESTClient(ctx)
 	if err != nil {
@@ -17,9 +16,9 @@ func GetDisk(resourceLabels *logstruct.AuditResourceLabels) (*computepb.Disk, er
 	defer diskClient.Close()
 
 	reqDisk := &computepb.GetDiskRequest{
-		Project: resourceLabels.ProjectId,
-		Zone:    resourceLabels.Zone,
-		Disk:    resourceLabels.ResourceId,
+		Project: resourceLocation["project-id"],
+		Zone:    resourceLocation["zone"],
+		Disk:    resourceLocation["name"],
 	}
 	disk, err := diskClient.Get(ctx, reqDisk)
 	if err != nil {
@@ -29,9 +28,7 @@ func GetDisk(resourceLabels *logstruct.AuditResourceLabels) (*computepb.Disk, er
 
 }
 
-func SetDiskLabel(
-	resourceLabels *logstruct.AuditResourceLabels,
-	labels map[string]string, labelFingerprint *string) error {
+func SetDiskLabel(resourceLocation, labels map[string]string, labelFingerprint *string) error {
 
 	ctx := context.Background()
 	diskClient, err := compute.NewDisksRESTClient(ctx)
@@ -41,9 +38,9 @@ func SetDiskLabel(
 	defer diskClient.Close()
 
 	reqDisk := &computepb.SetLabelsDiskRequest{
-		Project:  resourceLabels.ProjectId,
-		Zone:     resourceLabels.Zone,
-		Resource: resourceLabels.ResourceId,
+		Project:  resourceLocation["project-id"],
+		Zone:     resourceLocation["zone"],
+		Resource: resourceLocation["name"],
 		ZoneSetLabelsRequestResource: &computepb.ZoneSetLabelsRequest{
 			Labels:           labels,
 			LabelFingerprint: labelFingerprint,

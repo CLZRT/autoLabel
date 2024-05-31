@@ -1,94 +1,49 @@
 package gce
 
 import (
-	"autolabel/logstruct"
-	"autolabel/storage/disk"
+	"clzrt.io/autolabel/storage/disk"
+	"clzrt.io/autolabel/struct/logstruct"
 	"log"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
-func SingleInstance(logAudit *logstruct.AuditLogEntry) error {
-	// Get Instance
-	instance, err := getInstance(logAudit.Resource.Labels)
-	if err != nil {
-		log.Println(err)
-		return err
+func InstanceGce(logAudit *logstruct.GceLog) error {
+
+	resourceNameArray := strings.Split(logAudit.ProtoPayload.ResourceName, "/")
+	resourceLocation := map[string]string{
+		"project-id":  resourceNameArray[1],
+		"zone":        resourceNameArray[3],
+		"instance-id": resourceNameArray[5],
 	}
-
-	// Extra Info from log
-	payload := logAudit.ProtoPayload
-	resourceNameArray := strings.Split(payload.ResourceName, "/")
-	machineTypeArray := strings.Split(payload.Request.MachineType, "/")
-	creator := payload.Response.User
-	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9-]+")
-	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "-")
-
-	// Set Instance's Label
-	labels := map[string]string{
-		"created-by":    creatorString,
-		"instance-id":   payload.Response.InstanceId,
-		"instance-name": resourceNameArray[5],
-		"machine-type":  machineTypeArray[5],
-	}
-	labelFingerprint := instance.GetLabelFingerprint()
-	err = setInstanceLabel(logAudit.Resource.Labels, labels, &labelFingerprint)
-	if err != nil {
-		log.Println(err)
-		return err
-	}
-	log.Printf("The inserted instance %s has been  labeled successfully", instance.GetName())
-
-	// Set Disk's Label
-	disks := instance.GetDisks()
-	for _, diskInfo := range disks {
-		diskName := diskInfo.GetDeviceName()
-
-		resourceLabels := logstruct.AuditResourceLabels{
-			ProjectId:  logAudit.Resource.Labels.ProjectId,
-			Zone:       logAudit.Resource.Labels.Zone,
-			ResourceId: diskName,
-		}
-		getDisk, err := disk.GetDisk(&resourceLabels)
-		if err != nil {
-			return err
-		}
-		fingerprint := getDisk.GetLabelFingerprint()
-		err = disk.SetDiskLabel(&resourceLabels, labels, &fingerprint)
-		if err != nil {
-			return err
-		}
-
-	}
-	return nil
-
-}
-
-func MultiInstance(logAudit *logstruct.AuditLogEntry) error {
-
 	// Get instance
-	instance, err := getInstance(logAudit.Resource.Labels)
+	log.Printf("resourceLocation: %v", resourceLocation)
+	log.Printf("get entry in getInstance")
+	instance, err := getInstance(resourceLocation)
 
 	if err != nil {
 		log.Println(err)
 		return err
 	}
 
-	// extra info from log
+	// extra info from logstruct
 	creator := logAudit.ProtoPayload.AuthenticationInfo.PrincipalEmail
 	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9-]+")
 	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "-")
-	instanceId := logAudit.Resource.Labels.ResourceId
-
+	instanceId := logAudit.Resource.Labels.InstanceId
+	machineTypeArray := strings.Split(instance.GetMachineType(), "/")
 	// setInstanceLabel
 	labelFingerprint := instance.GetLabelFingerprint()
 	labels := map[string]string{
 		"created-by":    creatorString,
-		"machine-type":  instance.GetMachineType(),
+		"machine-type":  machineTypeArray[len(machineTypeArray)-1],
 		"instance-id":   instanceId,
 		"instance-name": instance.GetName(),
 	}
-	err = setInstanceLabel(logAudit.Resource.Labels, labels, &labelFingerprint)
+	log.Printf("labels: %v", labels)
+	log.Printf("get entry in setInstanceLabel")
+	err = setInstanceLabel(resourceLocation, labels, &labelFingerprint)
 	if err != nil {
 		log.Println(err)
 		return err
@@ -99,18 +54,23 @@ func MultiInstance(logAudit *logstruct.AuditLogEntry) error {
 	disks := instance.GetDisks()
 	for _, diskInfo := range disks {
 		diskName := diskInfo.GetDeviceName()
-
-		resourceLabels := logstruct.AuditResourceLabels{
-			ProjectId:  logAudit.Resource.Labels.ProjectId,
-			Zone:       logAudit.Resource.Labels.Zone,
-			ResourceId: diskName,
+		resourceLocation := map[string]string{
+			"project-id": resourceNameArray[1],
+			"zone":       resourceNameArray[3],
+			"name":       instance.GetName(),
 		}
-		getDisk, err := disk.GetDisk(&resourceLabels)
+		getDisk, err := disk.GetDisk(resourceLocation)
 		if err != nil {
 			return err
 		}
 		fingerprint := getDisk.GetLabelFingerprint()
-		err = disk.SetDiskLabel(&resourceLabels, labels, &fingerprint)
+		labelsDisk := map[string]string{
+			"created-by":    creatorString,
+			"size-gb":       strconv.FormatInt(diskInfo.GetDiskSizeGb(), 10),
+			"instance-id":   instanceId,
+			"instance-name": instance.GetName(),
+		}
+		err = disk.SetDiskLabel(resourceLocation, labelsDisk, &fingerprint)
 		if err != nil {
 			return err
 		}

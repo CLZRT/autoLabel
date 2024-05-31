@@ -1,37 +1,47 @@
 package sql
 
 import (
-	"autolabel/logstruct"
 	"context"
+	"fmt"
 	"google.golang.org/api/sqladmin/v1"
+	"log"
 )
 
-func GetSql(resourceLabels *logstruct.AuditResourceLabels) (*sqladmin.DatabaseInstance, error) {
+func GetDatabase(resourceLocation map[string]string) (*sqladmin.DatabaseInstance, error) {
 
 	ctx := context.Background()
 	service, err := sqladmin.NewService(ctx)
-
 	if err != nil {
 		return nil, err
 	}
 	// - instance: Database instance ID. This does not include the project ID.
 	// - project: Project ID of the project that contains the instance.
-	instance, err := service.Instances.Get(resourceLabels.ProjectId, resourceLabels.InstanceId).Context(ctx).Do()
+	instance, err := service.Instances.Get(resourceLocation["project-id"], resourceLocation["database-name"]).Context(ctx).Do()
 	if err != nil {
 		return nil, err
 	}
 	return instance, nil
 }
 
-func SetSqlLabel(resource *logstruct.AuditResourceLabels, instance *sqladmin.DatabaseInstance, labels map[string]string) error {
+func SetDatabaseLabel(resourceLocation, labels map[string]string) error {
 	ctx := context.Background()
+	log.Printf("Now: New sql Service")
 	service, err := sqladmin.NewService(ctx)
+	if err != nil {
+		return fmt.Errorf("DatabaseClient: %w", err)
+	}
+	log.Printf("Now: Get sql instance")
+
+	instance, err := service.Instances.Get(resourceLocation["project-id"], resourceLocation["database-name"]).Context(ctx).Do()
 	if err != nil {
 		return err
 	}
+
 	instance.Settings.UserLabels = labels
 
-	_, err = service.Instances.Update(resource.ProjectId, resource.InstanceId, instance).Do()
+	log.Printf("Now: Patch sql instance")
+	_, err = service.Instances.Patch(resourceLocation["project-id"], resourceLocation["database-name"], instance).Context(ctx).Do()
+
 	if err != nil {
 		return err
 	}

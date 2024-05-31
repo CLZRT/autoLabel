@@ -1,4 +1,4 @@
-module autolabel/storage/disk
+module clzrt.io/autolabel/storage
 
 go 1.22.3
 
@@ -8,6 +8,7 @@ require (
 	cloud.google.com/go/auth v0.4.1 // indirect
 	cloud.google.com/go/auth/oauth2adapt v0.2.2 // indirect
 	cloud.google.com/go/compute/metadata v0.3.0 // indirect
+	clzrt.io/autolabel/struct v0.0.0
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
@@ -33,3 +34,5 @@ require (
 	google.golang.org/grpc v1.63.2 // indirect
 	google.golang.org/protobuf v1.34.1 // indirect
 )
+
+replace clzrt.io/autolabel/struct => ../struct

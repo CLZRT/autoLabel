@@ -1,64 +1,48 @@
 package sql
 
 import (
-	"autolabel/logstruct"
-	"autolabel/storage/disk"
+	"clzrt.io/autolabel/struct/logstruct"
 	"log"
 	"regexp"
 	"strings"
 )
 
-func SingleDatabse(logAudit *logstruct.AuditLogEntry) error {
-	// Get Instance
-	instance, err := GetSql(logAudit.Resource.Labels)
-	if err != nil {
-		log.Println(err)
-		return err
+func Database(logAudit *logstruct.SqlLog) error {
+
+	resourceAttributesArray := strings.Split(logAudit.ProtoPayload.AuthorizationInfo[0].ResourceAttributes.Name, "/")
+	resourceLocation := map[string]string{
+		"project-id":    logAudit.Resource.Labels.ProjectId,
+		"database-name": resourceAttributesArray[3],
+	}
+	for k, v := range resourceLocation {
+		log.Printf(k, "value is", v)
 	}
 
-	// Extra Info from log
-	payload := logAudit.ProtoPayload
-	resourceNameArray := strings.Split(payload.ResourceName, "/")
-	machineTypeArray := strings.Split(payload.Request.Body.settings.tier, "/") //后期需要修改
-	creator := payload.Response.User
-	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9-]+") //
+	// Get database Instance
+	instance, err := GetDatabase(resourceLocation)
+	if err != nil {
+		return err
+	}
+	// Construct label struct
+	creator := logAudit.ProtoPayload.AuthenticationInfo.PrincipalEmail
+	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9-]+")
 	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "-")
+	machineType := instance.Settings.Tier
+	databaseName := resourceAttributesArray[3]
+	// setInstanceLabel
 
-	// Set Instance's Label
 	labels := map[string]string{
 		"created-by":    creatorString,
-		"database-id":   resource.labels.database_id
-		"instance-name": resourceNameArray[5],
-		"machine-type":  machineTypeArray[5],
+		"machine-type":  machineType,
+		"database-name": databaseName,
 	}
-	labelFingerprint := instance.GetLabelFingerprint()
-	err = setInstanceLabel(logAudit.Resource.Labels, labels, &labelFingerprint)
+	for k, v := range labels {
+		log.Printf(k+"'s value is", v)
+	}
+	err = SetDatabaseLabel(resourceLocation, labels)
 	if err != nil {
 		log.Println(err)
 		return err
-	}
-	log.Printf("The inserted instance %s has been  labeled successfully", instance.GetName())
-
-	// Set Disk's Label
-	disks := instance.GetDisks()
-	for _, diskInfo := range disks {
-		diskName := diskInfo.GetDeviceName()
-
-		resourceLabels := logstruct.AuditResourceLabels{
-			ProjectId:  logAudit.Resource.Labels.ProjectId,
-			Zone:       logAudit.Resource.Labels.Zone,
-			InstanceId: diskName,
-		}
-		getDisk, err := disk.GetDisk(&resourceLabels)
-		if err != nil {
-			return err
-		}
-		fingerprint := getDisk.GetLabelFingerprint()
-		err = disk.SetDiskLabel(&resourceLabels, labels, &fingerprint)
-		if err != nil {
-			return err
-		}
-
 	}
 	return nil
 
