@@ -77,6 +77,7 @@ func InstanceGce(logAudit *logstruct.GceLog) error {
 		log.Printf("The inserted instance's disk %s has been  labeled successfully", diskName)
 
 	}
+
 	return nil
 
 }
