@@ -1,0 +1,170 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "chenzeming@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "18.163.77.27",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe),gzip(gfe)",
+      "requestAttributes": {
+        "time": "2024-06-04T09:22:23.760412912Z",
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "container.googleapis.com",
+    "methodName": "google.container.v1beta1.ClusterManager.CreateCluster",
+    "authorizationInfo": [
+      {
+        "resource": "projects/testftl-5-7/zones/us-central1-c/clusters/cluster-1-czm",
+        "permission": "container.clusters.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "container.googleapis.com",
+          "name": "projects/testftl-5-7/zones/us-central1-c/clusters/cluster-1-czm",
+          "type": "container.googleapis.com/Cluster"
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-5-7/zones/us-central1-c/clusters/cluster-1-czm",
+    "request": {
+      "cluster": {
+        "networkPolicy": {},
+        "notificationConfig": {},
+        "securityPostureConfig": {},
+        "authenticatorGroupsConfig": {},
+        "monitoringConfig": {
+          "componentConfig": {
+            "enableComponents": [
+              "SYSTEM_COMPONENTS"
+            ]
+          },
+          "managedPrometheusConfig": {
+            "enabled": true
+          }
+        },
+        "initialClusterVersion": "1.28.9-gke.1000000",
+        "location": "us-central1-c",
+        "binaryAuthorization": {
+          "evaluationMode": "DISABLED"
+        },
+        "autoscaling": {},
+        "networkConfig": {
+          "datapathProvider": "LEGACY_DATAPATH"
+        },
+        "network": "projects/testftl-5-7/global/networks/default",
+        "masterAuthorizedNetworksConfig": {},
+        "locations": [
+          "us-central1-c"
+        ],
+        "ipAllocationPolicy": {
+          "stackType": "IPV4",
+          "useIpAliases": true
+        },
+        "name": "cluster-1-czm",
+        "nodePools": [
+          {
+            "networkConfig": {},
+            "upgradeSettings": {
+              "maxSurge": 1,
+              "strategy": "SURGE"
+            },
+            "queuedProvisioning": {},
+            "name": "default-pool",
+            "config": {
+              "imageType": "COS_CONTAINERD",
+              "diskType": "pd-balanced",
+              "shieldedInstanceConfig": {},
+              "advancedMachineFeatures": {
+                "enableNestedVirtualization": false
+              },
+              "machineType": "n2-standard-2",
+              "diskSizeGb": 30,
+              "oauthScopes": [
+                "https://www.googleapis.com/auth/devstorage.read_only",
+                "https://www.googleapis.com/auth/logging.write",
+                "https://www.googleapis.com/auth/monitoring",
+                "https://www.googleapis.com/auth/servicecontrol",
+                "https://www.googleapis.com/auth/service.management.readonly",
+                "https://www.googleapis.com/auth/trace.append"
+              ],
+              "metadata": {
+                "disable-legacy-endpoints": "true"
+              }
+            },
+            "initialNodeCount": 3,
+            "autoscaling": {},
+            "management": {
+              "autoUpgrade": true,
+              "autoRepair": true
+            }
+          }
+        ],
+        "shieldedNodes": {},
+        "releaseChannel": {
+          "channel": "REGULAR"
+        },
+        "loggingConfig": {
+          "componentConfig": {
+            "enableComponents": [
+              "SYSTEM_COMPONENTS",
+              "WORKLOADS"
+            ]
+          }
+        },
+        "addonsConfig": {
+          "horizontalPodAutoscaling": {},
+          "dnsCacheConfig": {},
+          "gcePersistentDiskCsiDriverConfig": {
+            "enabled": true
+          },
+          "gcsFuseCsiDriverConfig": {},
+          "httpLoadBalancing": {}
+        },
+        "subnetwork": "projects/testftl-5-7/regions/us-central1/subnetworks/default",
+        "databaseEncryption": {},
+        "defaultMaxPodsConstraint": {}
+      },
+      "parent": "projects/testftl-5-7/locations/us-central1-c",
+      "@type": "type.googleapis.com/google.container.v1alpha1.CreateClusterRequest"
+    },
+    "response": {
+      "name": "operation-1717492946208-00ff2696-2154-4326-86fd-f309823e60e6",
+      "operationType": "CREATE_CLUSTER",
+      "status": "RUNNING",
+      "@type": "type.googleapis.com/google.container.v1alpha1.Operation",
+      "selfLink": "https://container.googleapis.com/v1alpha1/projects/389224699132/zones/us-central1-c/operations/operation-1717492946208-00ff2696-2154-4326-86fd-f309823e60e6",
+      "targetLink": "https://container.googleapis.com/v1alpha1/projects/389224699132/zones/us-central1-c/clusters/cluster-1-czm",
+      "startTime": "2024-06-04T09:22:26.208211689Z"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1-c"
+      ]
+    },
+    "policyViolationInfo": {
+      "orgPolicyViolationInfo": {}
+    }
+  },
+  "insertId": "790invd169o",
+  "resource": {
+    "type": "gke_cluster",
+    "labels": {
+      "cluster_name": "cluster-1-czm",
+      "location": "us-central1-c",
+      "project_id": "testftl-5-7"
+    }
+  },
+  "timestamp": "2024-06-04T09:22:26.341295086Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-5-7/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "operation-1717492946208-00ff2696-2154-4326-86fd-f309823e60e6",
+    "producer": "container.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2024-06-04T09:22:27.267356577Z"
+}
