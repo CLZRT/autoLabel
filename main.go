@@ -1,14 +1,12 @@
 package main
 
 import (
-	"clzrt.io/autolabel/compute/dataproc"
 	"clzrt.io/autolabel/compute/gce"
-	"clzrt.io/autolabel/compute/ipaddress"
+	"clzrt.io/autolabel/compute/gke"
 	"clzrt.io/autolabel/database/bigquery"
 	"clzrt.io/autolabel/database/memory"
 	"clzrt.io/autolabel/database/sql"
 	"clzrt.io/autolabel/storage/disk"
-	"clzrt.io/autolabel/storage/gcs"
 	"clzrt.io/autolabel/struct/logstruct"
 	"context"
 	"encoding/json"
@@ -20,15 +18,9 @@ import (
 	"strings"
 )
 
-//
-//func init() {
-//
-//	functions.CloudEvent("labelResource", labelResource)
-//}
-
 func main() {
 	// Call the test function with the path to your JSON file
-	err := TestLabelResource("./log/gcs.json")
+	err := TestLabelResource("./log/log.json")
 	if err != nil {
 		log.Printf("Test failed: %v", err)
 	}
@@ -79,6 +71,12 @@ func TestLabelResource(filePath string) error {
 
 	return nil
 }
+
+//func init() {
+//
+//	functions.CloudEvent("labelResource", labelResource)
+//}
+
 func labelResource(ctx context.Context, ev event.Event) error {
 	// Extract parameters from the Cloud Event and Cloud Audit Log data
 	var msg logstruct.MessagePublishedData
@@ -134,16 +132,6 @@ func labelResource(ctx context.Context, ev event.Event) error {
 				return err
 			}
 			err = disk.SingleDisk(diskLog)
-			if err != nil {
-				return err
-			}
-		} else if strings.Contains(methodName, "addresses") {
-			addressLog := new(logstruct.IpaddressLog)
-			err := json.Unmarshal([]byte(logString), addressLog)
-			if err != nil {
-				return err
-			}
-			err = ipaddress.StaticIp(addressLog)
 			if err != nil {
 				return err
 			}
@@ -203,48 +191,20 @@ func labelResource(ctx context.Context, ev event.Event) error {
 			return err
 		}
 
-	} else if strings.Contains(methodName, "dataproc") {
-		log.Printf("resource Type:" + "dataproc")
-		if strings.Contains(methodName, "Cluster") {
-			clusterLog := new(logstruct.ClusterlogDP)
-			err := json.Unmarshal([]byte(logString), clusterLog)
-			if err != nil {
-				return err
-			}
-			err = dataproc.DataprocCluster(clusterLog)
-			if err != nil {
-				return err
-			}
-		} else if strings.Contains(methodName, "Job") {
-			jobLog := new(logstruct.JoblogDP)
-			err := json.Unmarshal([]byte(logString), jobLog)
-			if err != nil {
-				return err
-			}
-			err = dataproc.DataprocJob(jobLog)
-			if err != nil {
-				return err
-			}
+	} else if strings.Contains(methodName, "container") {
+		log.Printf("label gke")
+		gkeLog := new(logstruct.Gkelog)
+		err := json.Unmarshal([]byte(logString), gkeLog)
+		if err != nil {
+			return err
 		}
-
-	} else if strings.Contains(methodName, "storage") {
-		log.Printf("resource Type:" + "storage")
-		if strings.Contains(methodName, "bucket") {
-			log.Printf("Label bucket")
-			gcsLog := new(logstruct.Gcslog)
-			err := json.Unmarshal([]byte(logString), gcsLog)
-			if err != nil {
-				return err
-			}
-			err = gcs.Bucket(gcsLog)
-			if err != nil {
-				return err
-			}
+		err = gke.GKE_Cluster(gkeLog)
+		if err != nil {
+			return err
 		}
 	} else {
 		log.Printf("Excluded")
 	}
-
 	return nil
 
 }
