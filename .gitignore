@@ -1,0 +1,5 @@
+# .gitignore
+log/
+git-workflow.md
+.gitignore
+.idea/

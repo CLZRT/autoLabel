@@ -485,3 +485,203 @@ type TablelogBG struct {
 	LogName          string    `json:"logName"`
 	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
 }
+type ClusterlogDP struct {
+	ProtoPayload struct {
+		Type   string `json:"@type"`
+		Status struct {
+		} `json:"status"`
+		AuthenticationInfo struct {
+			PrincipalEmail   string `json:"principalEmail"`
+			PrincipalSubject string `json:"principalSubject"`
+		} `json:"authenticationInfo"`
+		RequestMetadata struct {
+			CallerIp                string `json:"callerIp"`
+			CallerSuppliedUserAgent string `json:"callerSuppliedUserAgent"`
+			RequestAttributes       struct {
+				Time time.Time `json:"time"`
+				Auth struct {
+				} `json:"auth"`
+			} `json:"requestAttributes"`
+			DestinationAttributes struct {
+			} `json:"destinationAttributes"`
+		} `json:"requestMetadata"`
+		ServiceName       string `json:"serviceName"`
+		MethodName        string `json:"methodName"`
+		AuthorizationInfo []struct {
+			Permission         string `json:"permission"`
+			Granted            bool   `json:"granted"`
+			ResourceAttributes struct {
+			} `json:"resourceAttributes"`
+			PermissionType string `json:"permissionType"`
+		} `json:"authorizationInfo"`
+		ResourceName string `json:"resourceName"`
+		Request      struct {
+			Cluster struct {
+				ProjectId   string `json:"projectId"`
+				ClusterName string `json:"clusterName"`
+				Config      struct {
+					GceClusterConfig struct {
+						SubnetworkUri          string `json:"subnetworkUri"`
+						InternalIpOnly         bool   `json:"internalIpOnly"`
+						ShieldedInstanceConfig struct {
+							EnableSecureBoot          bool `json:"enableSecureBoot"`
+							EnableVtpm                bool `json:"enableVtpm"`
+							EnableIntegrityMonitoring bool `json:"enableIntegrityMonitoring"`
+						} `json:"shieldedInstanceConfig"`
+					} `json:"gceClusterConfig"`
+					MasterConfig struct {
+						NumInstances   int    `json:"numInstances"`
+						MachineTypeUri string `json:"machineTypeUri"`
+						DiskConfig     struct {
+							BootDiskSizeGb int    `json:"bootDiskSizeGb"`
+							BootDiskType   string `json:"bootDiskType"`
+						} `json:"diskConfig"`
+					} `json:"masterConfig"`
+					WorkerConfig struct {
+						NumInstances   int    `json:"numInstances"`
+						MachineTypeUri string `json:"machineTypeUri"`
+						DiskConfig     struct {
+							BootDiskSizeGb int    `json:"bootDiskSizeGb"`
+							BootDiskType   string `json:"bootDiskType"`
+						} `json:"diskConfig"`
+					} `json:"workerConfig"`
+					SecondaryWorkerConfig struct {
+					} `json:"secondaryWorkerConfig"`
+					SoftwareConfig struct {
+						ImageVersion string `json:"imageVersion"`
+					} `json:"softwareConfig"`
+					EncryptionConfig struct {
+					} `json:"encryptionConfig"`
+					SecurityConfig struct {
+						KerberosConfig struct {
+						} `json:"kerberosConfig"`
+					} `json:"securityConfig"`
+					LifecycleConfig struct {
+					} `json:"lifecycleConfig"`
+					AutoscalingConfig struct {
+					} `json:"autoscalingConfig"`
+					EndpointConfig struct {
+					} `json:"endpointConfig"`
+				} `json:"config"`
+				Status struct {
+				} `json:"status"`
+				StatusHistory []struct {
+				} `json:"statusHistory"`
+				Metrics struct {
+				} `json:"metrics"`
+			} `json:"cluster"`
+			Region    string `json:"region"`
+			ProjectId string `json:"projectId"`
+			Type      string `json:"@type"`
+		} `json:"request"`
+		ResourceLocation struct {
+			CurrentLocations []string `json:"currentLocations"`
+		} `json:"resourceLocation"`
+	} `json:"protoPayload"`
+	InsertId string `json:"insertId"`
+	Resource struct {
+		Type   string `json:"type"`
+		Labels struct {
+			ClusterUuid string `json:"cluster_uuid"`
+			ProjectId   string `json:"project_id"`
+			Region      string `json:"region"`
+			ClusterName string `json:"cluster_name"`
+		} `json:"labels"`
+	} `json:"resource"`
+	Timestamp time.Time `json:"timestamp"`
+	Severity  string    `json:"severity"`
+	LogName   string    `json:"logName"`
+	Operation struct {
+		Id       string `json:"id"`
+		Producer string `json:"producer"`
+		First    bool   `json:"first"`
+	} `json:"operation"`
+	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
+}
+
+type JoblogDP struct {
+	ProtoPayload struct {
+		Type   string `json:"@type"`
+		Status struct {
+		} `json:"status"`
+		AuthenticationInfo struct {
+			PrincipalEmail   string `json:"principalEmail"`
+			PrincipalSubject string `json:"principalSubject"`
+		} `json:"authenticationInfo"`
+		RequestMetadata struct {
+			CallerIp                string `json:"callerIp"`
+			CallerSuppliedUserAgent string `json:"callerSuppliedUserAgent"`
+			RequestAttributes       struct {
+				Time time.Time `json:"time"`
+				Auth struct {
+				} `json:"auth"`
+			} `json:"requestAttributes"`
+			DestinationAttributes struct {
+			} `json:"destinationAttributes"`
+		} `json:"requestMetadata"`
+		ServiceName       string `json:"serviceName"`
+		MethodName        string `json:"methodName"`
+		AuthorizationInfo []struct {
+			Permission         string `json:"permission"`
+			Granted            bool   `json:"granted"`
+			ResourceAttributes struct {
+			} `json:"resourceAttributes"`
+			PermissionType string `json:"permissionType"`
+		} `json:"authorizationInfo"`
+		ResourceName string `json:"resourceName"`
+		Request      struct {
+			Job struct {
+				Reference struct {
+					JobId string `json:"jobId"`
+				} `json:"reference"`
+				Placement struct {
+					ClusterName string `json:"clusterName"`
+				} `json:"placement"`
+				HadoopJob struct {
+					MainClass string `json:"mainClass"`
+				} `json:"hadoopJob"`
+			} `json:"job"`
+			Region    string `json:"region"`
+			ProjectId string `json:"projectId"`
+			Type      string `json:"@type"`
+		} `json:"request"`
+		Response struct {
+			Reference struct {
+				ProjectId string `json:"projectId"`
+				JobId     string `json:"jobId"`
+			} `json:"reference"`
+			HadoopJob struct {
+				MainClass string `json:"mainClass"`
+			} `json:"hadoopJob"`
+			JobUuid               string `json:"jobUuid"`
+			DriverControlFilesUri string `json:"driverControlFilesUri"`
+			Placement             struct {
+				ClusterName string `json:"clusterName"`
+				ClusterUuid string `json:"clusterUuid"`
+			} `json:"placement"`
+			DriverOutputResourceUri string `json:"driverOutputResourceUri"`
+			Status                  struct {
+				State          string    `json:"state"`
+				StateStartTime time.Time `json:"stateStartTime"`
+			} `json:"status"`
+			Type string `json:"@type"`
+		} `json:"response"`
+		ResourceLocation struct {
+			CurrentLocations []string `json:"currentLocations"`
+		} `json:"resourceLocation"`
+	} `json:"protoPayload"`
+	InsertId string `json:"insertId"`
+	Resource struct {
+		Type   string `json:"type"`
+		Labels struct {
+			ProjectId   string `json:"project_id"`
+			Region      string `json:"region"`
+			ClusterUuid string `json:"cluster_uuid"`
+			ClusterName string `json:"cluster_name"`
+		} `json:"labels"`
+	} `json:"resource"`
+	Timestamp        time.Time `json:"timestamp"`
+	Severity         string    `json:"severity"`
+	LogName          string    `json:"logName"`
+	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
+}

@@ -1,6 +1,7 @@
-package autolabel
+package autoLabel
 
 import (
+	"clzrt.io/autolabel/compute/dataproc"
 	"clzrt.io/autolabel/compute/gce"
 	"clzrt.io/autolabel/database/bigquery"
 	"clzrt.io/autolabel/database/memory"
@@ -136,9 +137,34 @@ func labelResource(ctx context.Context, ev event.Event) error {
 			return err
 		}
 
+	} else if strings.Contains(methodName, "dataproc") {
+		log.Printf("resource Type:" + "dataproc")
+		if strings.Contains(methodName, "Cluster") {
+			clusterLog := new(logstruct.ClusterlogDP)
+			err := json.Unmarshal([]byte(logString), clusterLog)
+			if err != nil {
+				return err
+			}
+			err = dataproc.DataprocCluster(clusterLog)
+			if err != nil {
+				return err
+			}
+		} else if strings.Contains(methodName, "Job") {
+			jobLog := new(logstruct.JoblogDP)
+			err := json.Unmarshal([]byte(logString), jobLog)
+			if err != nil {
+				return err
+			}
+			err = dataproc.DataprocJob(jobLog)
+			if err != nil {
+				return err
+			}
+		}
+
 	} else {
 		log.Printf("Excluded")
 	}
+
 	return nil
 
 }
