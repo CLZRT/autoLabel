@@ -2,7 +2,19 @@ module clzrt.io/autolabel/storage
 
 go 1.22.3
 
-require cloud.google.com/go/compute v1.27.0
+require (
+	cloud.google.com/go/compute v1.27.0
+	cloud.google.com/go/storage v1.41.0
+)
+
+require (
+	cloud.google.com/go v0.113.0 // indirect
+	cloud.google.com/go/iam v1.1.8 // indirect
+	github.com/google/uuid v1.6.0 // indirect
+	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.49.0 // indirect
+	golang.org/x/sync v0.7.0 // indirect
+	golang.org/x/time v0.5.0 // indirect
+)
 
 require (
 	cloud.google.com/go/auth v0.4.1 // indirect
@@ -27,7 +39,7 @@ require (
 	golang.org/x/oauth2 v0.20.0 // indirect
 	golang.org/x/sys v0.20.0 // indirect
 	golang.org/x/text v0.15.0 // indirect
-	google.golang.org/api v0.180.0 // indirect
+	google.golang.org/api v0.180.0
 	google.golang.org/genproto v0.0.0-20240401170217-c3f982113cda // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240513163218-0867130af1f8 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240509183442-62759503f434 // indirect

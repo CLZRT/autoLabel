@@ -8,6 +8,7 @@ import (
 	"clzrt.io/autolabel/database/memory"
 	"clzrt.io/autolabel/database/sql"
 	"clzrt.io/autolabel/storage/disk"
+	"clzrt.io/autolabel/storage/gcs"
 	"clzrt.io/autolabel/struct/logstruct"
 	"context"
 	"encoding/json"
@@ -27,7 +28,7 @@ import (
 
 func main() {
 	// Call the test function with the path to your JSON file
-	err := TestLabelResource("./log/instance.json")
+	err := TestLabelResource("./log/gcs.json")
 	if err != nil {
 		log.Printf("Test failed: %v", err)
 	}
@@ -226,6 +227,20 @@ func labelResource(ctx context.Context, ev event.Event) error {
 			}
 		}
 
+	} else if strings.Contains(methodName, "storage") {
+		log.Printf("resource Type:" + "storage")
+		if strings.Contains(methodName, "bucket") {
+			log.Printf("Label bucket")
+			gcsLog := new(logstruct.Gcslog)
+			err := json.Unmarshal([]byte(logString), gcsLog)
+			if err != nil {
+				return err
+			}
+			err = gcs.Bucket(gcsLog)
+			if err != nil {
+				return err
+			}
+		}
 	} else {
 		log.Printf("Excluded")
 	}
