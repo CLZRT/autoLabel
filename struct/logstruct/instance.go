@@ -227,6 +227,45 @@ type DiskLog struct {
 	} `json:"operation"`
 	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
 }
+type IpaddressLog struct {
+	ProtoPayload struct {
+		Type               string `json:"@type"`
+		AuthenticationInfo struct {
+			PrincipalEmail string `json:"principalEmail"`
+		} `json:"authenticationInfo"`
+		RequestMetadata struct {
+			CallerIp                string `json:"callerIp"`
+			CallerSuppliedUserAgent string `json:"callerSuppliedUserAgent"`
+		} `json:"requestMetadata"`
+		ServiceName  string `json:"serviceName"`
+		MethodName   string `json:"methodName"`
+		ResourceName string `json:"resourceName"`
+		Request      struct {
+			Type string `json:"@type"`
+		} `json:"request"`
+	} `json:"protoPayload"`
+	InsertId string `json:"insertId"`
+	Resource struct {
+		Type   string `json:"type"`
+		Labels struct {
+			ReservedAddressId string `json:"reserved_address_id"`
+			ProjectId         string `json:"project_id"`
+			Location          string `json:"location"`
+		} `json:"labels"`
+	} `json:"resource"`
+	Timestamp time.Time `json:"timestamp"`
+	Severity  string    `json:"severity"`
+	Labels    struct {
+		ComputeGoogleapisComRootTriggerId string `json:"compute.googleapis.com/root_trigger_id"`
+	} `json:"labels"`
+	LogName   string `json:"logName"`
+	Operation struct {
+		Id       string `json:"id"`
+		Producer string `json:"producer"`
+		Last     bool   `json:"last"`
+	} `json:"operation"`
+	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
+}
 type SqlLog struct {
 	ProtoPayload struct {
 		Type   string `json:"@type"`
@@ -598,7 +637,6 @@ type ClusterlogDP struct {
 	} `json:"operation"`
 	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
 }
-
 type JoblogDP struct {
 	ProtoPayload struct {
 		Type   string `json:"@type"`
