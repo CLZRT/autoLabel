@@ -8,6 +8,7 @@ import (
 	"clzrt.io/autolabel/database/bigquery"
 	"clzrt.io/autolabel/database/memory"
 	"clzrt.io/autolabel/database/sql"
+	"clzrt.io/autolabel/storage/ar"
 	"clzrt.io/autolabel/storage/disk"
 	"clzrt.io/autolabel/storage/filestore"
 	"clzrt.io/autolabel/storage/gcs"
@@ -30,7 +31,7 @@ import (
 
 func main() {
 	// Call the test function with the path to your JSON file
-	err := TestLabelResource("./log/filestore_backup.json")
+	err := TestLabelResource("./log/log.json")
 	if err != nil {
 		log.Printf("Test failed: %v", err)
 	}
@@ -81,6 +82,12 @@ func TestLabelResource(filePath string) error {
 
 	return nil
 }
+
+//func init() {
+//
+//	functions.CloudEvent("labelResource", labelResource)
+//}
+
 func labelResource(ctx context.Context, ev event.Event) error {
 	// Extract parameters from the Cloud Event and Cloud Audit Log data
 	var msg logstruct.MessagePublishedData
@@ -116,6 +123,7 @@ func labelResource(ctx context.Context, ev event.Event) error {
 			if err != nil {
 				return err
 			}
+			log.Printf("Get Into GCE")
 			err = gce.InstanceGce(gceLog)
 			if err != nil {
 				return err
@@ -278,7 +286,21 @@ func labelResource(ctx context.Context, ev event.Event) error {
 				return err
 			}
 		}
+	case "artifactregistry.googleapis.com":
+		if strings.Contains(methodName, "artifactregistry") {
+			log.Printf("label artifactregistry")
+			arLog := new(logstruct.Arlog)
+			err := json.Unmarshal([]byte(logString), arLog)
+			if err != nil {
+				return err
+			}
+			err = ar.Artifactregistry(arLog)
+			if err != nil {
+				return err
+			}
+		}
 	}
 
 	return nil
+
 }
