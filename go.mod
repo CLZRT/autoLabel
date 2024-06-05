@@ -20,6 +20,8 @@ require (
 	cloud.google.com/go/compute v1.27.0 // indirect
 	cloud.google.com/go/compute/metadata v0.3.0 // indirect
 	cloud.google.com/go/container v1.35.0 // indirect
+	cloud.google.com/go/dataproc v1.12.0 // indirect
+	cloud.google.com/go/filestore v1.8.2 // indirect
 	cloud.google.com/go/iam v1.1.8 // indirect
 	cloud.google.com/go/longrunning v0.5.7 // indirect
 	cloud.google.com/go/redis v1.15.0 // indirect

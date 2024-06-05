@@ -1023,3 +1023,149 @@ type Arlog struct {
 	} `json:"operation"`
 	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
 }
+type FilestoreInstanceLog struct {
+	ProtoPayload struct {
+		Type   string `json:"@type"`
+		Status struct {
+		} `json:"status"`
+		AuthenticationInfo struct {
+			PrincipalEmail   string `json:"principalEmail"`
+			PrincipalSubject string `json:"principalSubject"`
+		} `json:"authenticationInfo"`
+		RequestMetadata struct {
+			CallerIp                string `json:"callerIp"`
+			CallerSuppliedUserAgent string `json:"callerSuppliedUserAgent"`
+			RequestAttributes       struct {
+				Time time.Time `json:"time"`
+				Auth struct {
+				} `json:"auth"`
+			} `json:"requestAttributes"`
+			DestinationAttributes struct {
+			} `json:"destinationAttributes"`
+		} `json:"requestMetadata"`
+		ServiceName       string `json:"serviceName"`
+		MethodName        string `json:"methodName"`
+		AuthorizationInfo []struct {
+			Resource           string `json:"resource"`
+			Permission         string `json:"permission"`
+			Granted            bool   `json:"granted"`
+			ResourceAttributes struct {
+				Service string `json:"service"`
+				Name    string `json:"name"`
+			} `json:"resourceAttributes"`
+			PermissionType string `json:"permissionType"`
+		} `json:"authorizationInfo"`
+		ResourceName string `json:"resourceName"`
+		Request      struct {
+			InstanceId string `json:"instance_id"`
+			Instance   struct {
+				Tier       string `json:"tier"`
+				FileShares []struct {
+					CapacityGb int    `json:"capacity_gb"`
+					Name       string `json:"name"`
+				} `json:"file_shares"`
+				Networks []struct {
+					Network         string   `json:"network"`
+					Modes           []string `json:"modes"`
+					ReservedIpRange string   `json:"reserved_ip_range"`
+				} `json:"networks"`
+				Description string `json:"description"`
+			} `json:"instance"`
+			Parent string `json:"parent"`
+			Type   string `json:"@type"`
+		} `json:"request"`
+		Response struct {
+			Type string `json:"@type"`
+		} `json:"response"`
+		ResourceLocation struct {
+			CurrentLocations []string `json:"currentLocations"`
+		} `json:"resourceLocation"`
+	} `json:"protoPayload"`
+	InsertId string `json:"insertId"`
+	Resource struct {
+		Type   string `json:"type"`
+		Labels struct {
+			ProjectId string `json:"project_id"`
+			Method    string `json:"method"`
+			Service   string `json:"service"`
+		} `json:"labels"`
+	} `json:"resource"`
+	Timestamp time.Time `json:"timestamp"`
+	Severity  string    `json:"severity"`
+	LogName   string    `json:"logName"`
+	Operation struct {
+		Id       string `json:"id"`
+		Producer string `json:"producer"`
+		First    bool   `json:"first"`
+	} `json:"operation"`
+	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
+}
+type FilestoreBackupLog struct {
+	ProtoPayload struct {
+		Type   string `json:"@type"`
+		Status struct {
+		} `json:"status"`
+		AuthenticationInfo struct {
+			PrincipalEmail   string `json:"principalEmail"`
+			PrincipalSubject string `json:"principalSubject"`
+		} `json:"authenticationInfo"`
+		RequestMetadata struct {
+			CallerIp                string `json:"callerIp"`
+			CallerSuppliedUserAgent string `json:"callerSuppliedUserAgent"`
+			RequestAttributes       struct {
+				Time time.Time `json:"time"`
+				Auth struct {
+				} `json:"auth"`
+			} `json:"requestAttributes"`
+			DestinationAttributes struct {
+			} `json:"destinationAttributes"`
+		} `json:"requestMetadata"`
+		ServiceName       string `json:"serviceName"`
+		MethodName        string `json:"methodName"`
+		AuthorizationInfo []struct {
+			Resource           string `json:"resource"`
+			Permission         string `json:"permission"`
+			Granted            bool   `json:"granted"`
+			ResourceAttributes struct {
+				Service string `json:"service"`
+				Name    string `json:"name"`
+			} `json:"resourceAttributes"`
+			PermissionType string `json:"permissionType"`
+		} `json:"authorizationInfo"`
+		ResourceName string `json:"resourceName"`
+		Request      struct {
+			Backup struct {
+				SourceFileShare string `json:"source_file_share"`
+				Description     string `json:"description"`
+				SourceInstance  string `json:"source_instance"`
+			} `json:"backup"`
+			BackupId string `json:"backup_id"`
+			Type     string `json:"@type"`
+			Parent   string `json:"parent"`
+		} `json:"request"`
+		Response struct {
+			Type string `json:"@type"`
+		} `json:"response"`
+		ResourceLocation struct {
+			CurrentLocations []string `json:"currentLocations"`
+		} `json:"resourceLocation"`
+	} `json:"protoPayload"`
+	InsertId string `json:"insertId"`
+	Resource struct {
+		Type   string `json:"type"`
+		Labels struct {
+			Service   string `json:"service"`
+			ProjectId string `json:"project_id"`
+			Method    string `json:"method"`
+		} `json:"labels"`
+	} `json:"resource"`
+	Timestamp time.Time `json:"timestamp"`
+	Severity  string    `json:"severity"`
+	LogName   string    `json:"logName"`
+	Operation struct {
+		Id       string `json:"id"`
+		Producer string `json:"producer"`
+		First    bool   `json:"first"`
+	} `json:"operation"`
+	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
+}

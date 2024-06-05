@@ -8,6 +8,7 @@ import (
 	"clzrt.io/autolabel/database/bigquery"
 	"clzrt.io/autolabel/database/memory"
 	"clzrt.io/autolabel/database/sql"
+	"clzrt.io/autolabel/storage/ar"
 	"clzrt.io/autolabel/storage/disk"
 	"clzrt.io/autolabel/storage/filestore"
 	"clzrt.io/autolabel/storage/gcs"
@@ -281,6 +282,19 @@ func labelResource(ctx context.Context, ev event.Event) error {
 				return err
 			}
 			err = gke.GKE_Cluster(gkeLog)
+			if err != nil {
+				return err
+			}
+		}
+	case "artifactregistry.googleapis.com":
+		if strings.Contains(methodName, "artifactregistry") {
+			log.Printf("label artifactregistry")
+			arLog := new(logstruct.Arlog)
+			err := json.Unmarshal([]byte(logString), arLog)
+			if err != nil {
+				return err
+			}
+			err = ar.Artifactregistry(arLog)
 			if err != nil {
 				return err
 			}
