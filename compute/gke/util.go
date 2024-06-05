@@ -12,17 +12,18 @@ import (
 func GetGke(name string, resourceLocation map[string]string) (*containerpb.Cluster, error) {
 	ctx := context.Background()
 	c, err := container.NewClusterManagerClient(ctx)
-
+	println("here")
 	if err != nil {
 		return nil, err
 	}
 	defer c.Close()
 	reqGke := &containerpb.GetClusterRequest{
-		ProjectId: resourceLocation["project-id"],
-		Zone:      resourceLocation["zone"],
-		ClusterId: resourceLocation["cluster-id"],
-		Name:      name,
+		//ProjectId: resourceLocation["project-id"],
+		//Zone:      resourceLocation["zone"],
+		//ClusterId: resourceLocation["cluster-id"],
+		Name: name,
 	}
+	println("here2")
 	gke, err := c.GetCluster(ctx, reqGke)
 	print("success")
 	if err != nil {
@@ -51,9 +52,9 @@ func SetGkeLabel(name string, resourceLocation, labels map[string]string, labelF
 	println(labelFingerprint)
 	// Add the labels to the instance
 	_, err = c.SetLabels(context.Background(), &containerpb.SetLabelsRequest{
-		ProjectId:        resourceLocation["project-id"],
-		Zone:             resourceLocation["zone"],
-		ClusterId:        resourceLocation["cluster-id"],
+		//ProjectId:        resourceLocation["project-id"],
+		//Zone:             resourceLocation["zone"],
+		//ClusterId:        resourceLocation["cluster-id"],
 		Name:             name,
 		ResourceLabels:   labels,
 		LabelFingerprint: labelFingerprint,

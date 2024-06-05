@@ -2,169 +2,64 @@
   "protoPayload": {
     "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
     "authenticationInfo": {
-      "principalEmail": "chenzeming@ftl-cloud.com"
+      "principalEmail": "chenzeming@ftl-cloud.com",
+      "principalSubject": "user:chenzeming@ftl-cloud.com"
     },
     "requestMetadata": {
       "callerIp": "18.163.77.27",
       "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe),gzip(gfe)",
       "requestAttributes": {
-        "time": "2024-06-04T09:22:23.760412912Z",
-        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "time": "2024-06-05T03:56:48.614471624Z",
         "auth": {}
       },
       "destinationAttributes": {}
     },
-    "serviceName": "container.googleapis.com",
-    "methodName": "google.container.v1beta1.ClusterManager.CreateCluster",
+    "serviceName": "artifactregistry.googleapis.com",
+    "methodName": "google.devtools.artifactregistry.v1.ArtifactRegistry.CreateRepository",
     "authorizationInfo": [
       {
-        "resource": "projects/testftl-5-7/zones/us-central1-c/clusters/cluster-1-czm",
-        "permission": "container.clusters.create",
+        "resource": "projects/testftl-5-7/locations/northamerica-northeast1",
+        "permission": "artifactregistry.repositories.create",
         "granted": true,
-        "resourceAttributes": {
-          "service": "container.googleapis.com",
-          "name": "projects/testftl-5-7/zones/us-central1-c/clusters/cluster-1-czm",
-          "type": "container.googleapis.com/Cluster"
-        },
+        "resourceAttributes": {},
         "permissionType": "ADMIN_WRITE"
       }
     ],
-    "resourceName": "projects/testftl-5-7/zones/us-central1-c/clusters/cluster-1-czm",
+    "resourceName": "projects/testftl-5-7/locations/northamerica-northeast1",
     "request": {
-      "cluster": {
-        "networkPolicy": {},
-        "notificationConfig": {},
-        "securityPostureConfig": {},
-        "authenticatorGroupsConfig": {},
-        "monitoringConfig": {
-          "componentConfig": {
-            "enableComponents": [
-              "SYSTEM_COMPONENTS"
-            ]
-          },
-          "managedPrometheusConfig": {
-            "enabled": true
-          }
+      "repository": {
+        "format": "DOCKER",
+        "dockerConfig": {
+          "immutableTags": false
         },
-        "initialClusterVersion": "1.28.9-gke.1000000",
-        "location": "us-central1-c",
-        "binaryAuthorization": {
-          "evaluationMode": "DISABLED"
-        },
-        "autoscaling": {},
-        "networkConfig": {
-          "datapathProvider": "LEGACY_DATAPATH"
-        },
-        "network": "projects/testftl-5-7/global/networks/default",
-        "masterAuthorizedNetworksConfig": {},
-        "locations": [
-          "us-central1-c"
-        ],
-        "ipAllocationPolicy": {
-          "stackType": "IPV4",
-          "useIpAliases": true
-        },
-        "name": "cluster-1-czm",
-        "nodePools": [
-          {
-            "networkConfig": {},
-            "upgradeSettings": {
-              "maxSurge": 1,
-              "strategy": "SURGE"
-            },
-            "queuedProvisioning": {},
-            "name": "default-pool",
-            "config": {
-              "imageType": "COS_CONTAINERD",
-              "diskType": "pd-balanced",
-              "shieldedInstanceConfig": {},
-              "advancedMachineFeatures": {
-                "enableNestedVirtualization": false
-              },
-              "machineType": "n2-standard-2",
-              "diskSizeGb": 30,
-              "oauthScopes": [
-                "https://www.googleapis.com/auth/devstorage.read_only",
-                "https://www.googleapis.com/auth/logging.write",
-                "https://www.googleapis.com/auth/monitoring",
-                "https://www.googleapis.com/auth/servicecontrol",
-                "https://www.googleapis.com/auth/service.management.readonly",
-                "https://www.googleapis.com/auth/trace.append"
-              ],
-              "metadata": {
-                "disable-legacy-endpoints": "true"
-              }
-            },
-            "initialNodeCount": 3,
-            "autoscaling": {},
-            "management": {
-              "autoUpgrade": true,
-              "autoRepair": true
-            }
-          }
-        ],
-        "shieldedNodes": {},
-        "releaseChannel": {
-          "channel": "REGULAR"
-        },
-        "loggingConfig": {
-          "componentConfig": {
-            "enableComponents": [
-              "SYSTEM_COMPONENTS",
-              "WORKLOADS"
-            ]
-          }
-        },
-        "addonsConfig": {
-          "horizontalPodAutoscaling": {},
-          "dnsCacheConfig": {},
-          "gcePersistentDiskCsiDriverConfig": {
-            "enabled": true
-          },
-          "gcsFuseCsiDriverConfig": {},
-          "httpLoadBalancing": {}
-        },
-        "subnetwork": "projects/testftl-5-7/regions/us-central1/subnetworks/default",
-        "databaseEncryption": {},
-        "defaultMaxPodsConstraint": {}
+        "cleanupPolicyDryRun": true
       },
-      "parent": "projects/testftl-5-7/locations/us-central1-c",
-      "@type": "type.googleapis.com/google.container.v1alpha1.CreateClusterRequest"
-    },
-    "response": {
-      "name": "operation-1717492946208-00ff2696-2154-4326-86fd-f309823e60e6",
-      "operationType": "CREATE_CLUSTER",
-      "status": "RUNNING",
-      "@type": "type.googleapis.com/google.container.v1alpha1.Operation",
-      "selfLink": "https://container.googleapis.com/v1alpha1/projects/389224699132/zones/us-central1-c/operations/operation-1717492946208-00ff2696-2154-4326-86fd-f309823e60e6",
-      "targetLink": "https://container.googleapis.com/v1alpha1/projects/389224699132/zones/us-central1-c/clusters/cluster-1-czm",
-      "startTime": "2024-06-04T09:22:26.208211689Z"
+      "repositoryId": "czm",
+      "@type": "type.googleapis.com/google.devtools.artifactregistry.v1.CreateRepositoryRequest",
+      "parent": "projects/testftl-5-7/locations/northamerica-northeast1"
     },
     "resourceLocation": {
       "currentLocations": [
-        "us-central1-c"
+        "northamerica-northeast1"
       ]
-    },
-    "policyViolationInfo": {
-      "orgPolicyViolationInfo": {}
     }
   },
-  "insertId": "790invd169o",
+  "insertId": "efgntad1ust",
   "resource": {
-    "type": "gke_cluster",
+    "type": "audited_resource",
     "labels": {
-      "cluster_name": "cluster-1-czm",
-      "location": "us-central1-c",
+      "service": "artifactregistry.googleapis.com",
+      "method": "google.devtools.artifactregistry.v1.ArtifactRegistry.CreateRepository",
       "project_id": "testftl-5-7"
     }
   },
-  "timestamp": "2024-06-04T09:22:26.341295086Z",
+  "timestamp": "2024-06-05T03:56:48.605247477Z",
   "severity": "NOTICE",
   "logName": "projects/testftl-5-7/logs/cloudaudit.googleapis.com%2Factivity",
   "operation": {
-    "id": "operation-1717492946208-00ff2696-2154-4326-86fd-f309823e60e6",
-    "producer": "container.googleapis.com",
+    "id": "projects/testftl-5-7/locations/northamerica-northeast1/operations/73948c11-088d-478b-8934-6a9b3f89ee28",
+    "producer": "artifactregistry.googleapis.com",
     "first": true
   },
-  "receiveTimestamp": "2024-06-04T09:22:27.267356577Z"
+  "receiveTimestamp": "2024-06-05T03:56:48.980369957Z"
 }

@@ -30,7 +30,7 @@ import (
 
 func main() {
 	// Call the test function with the path to your JSON file
-	err := TestLabelResource("./log/filestore_backup.json")
+	err := TestLabelResource("./log/log.json")
 	if err != nil {
 		log.Printf("Test failed: %v", err)
 	}
@@ -81,6 +81,12 @@ func TestLabelResource(filePath string) error {
 
 	return nil
 }
+
+//func init() {
+//
+//	functions.CloudEvent("labelResource", labelResource)
+//}
+
 func labelResource(ctx context.Context, ev event.Event) error {
 	// Extract parameters from the Cloud Event and Cloud Audit Log data
 	var msg logstruct.MessagePublishedData
@@ -116,6 +122,7 @@ func labelResource(ctx context.Context, ev event.Event) error {
 			if err != nil {
 				return err
 			}
+			log.Printf("Get Into GCE")
 			err = gce.InstanceGce(gceLog)
 			if err != nil {
 				return err
@@ -281,4 +288,5 @@ func labelResource(ctx context.Context, ev event.Event) error {
 	}
 
 	return nil
+
 }
