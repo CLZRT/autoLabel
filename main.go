@@ -3,6 +3,7 @@ package main
 import (
 	"clzrt.io/autolabel/compute/dataproc"
 	"clzrt.io/autolabel/compute/gce"
+	"clzrt.io/autolabel/compute/gke"
 	"clzrt.io/autolabel/compute/ipaddress"
 	"clzrt.io/autolabel/database/bigquery"
 	"clzrt.io/autolabel/database/memory"
@@ -264,6 +265,20 @@ func labelResource(ctx context.Context, ev event.Event) error {
 				return err
 			}
 		}
+	case "container.googleapis.com":
+		if strings.Contains(methodName, "container") {
+			log.Printf("label gke")
+			gkeLog := new(logstruct.Gkelog)
+			err := json.Unmarshal([]byte(logString), gkeLog)
+			if err != nil {
+				return err
+			}
+			err = gke.GKE_Cluster(gkeLog)
+			if err != nil {
+				return err
+			}
+		}
 	}
+
 	return nil
 }
