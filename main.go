@@ -1,12 +1,16 @@
 package main
 
 import (
+	"clzrt.io/autolabel/compute/dataproc"
 	"clzrt.io/autolabel/compute/gce"
 	"clzrt.io/autolabel/compute/gke"
+	"clzrt.io/autolabel/compute/ipaddress"
 	"clzrt.io/autolabel/database/bigquery"
 	"clzrt.io/autolabel/database/memory"
 	"clzrt.io/autolabel/database/sql"
 	"clzrt.io/autolabel/storage/disk"
+	"clzrt.io/autolabel/storage/filestore"
+	"clzrt.io/autolabel/storage/gcs"
 	"clzrt.io/autolabel/struct/logstruct"
 	"context"
 	"encoding/json"
@@ -18,9 +22,15 @@ import (
 	"strings"
 )
 
+//
+//func init() {
+//
+//	functions.CloudEvent("labelResource", labelResource)
+//}
+
 func main() {
 	// Call the test function with the path to your JSON file
-	err := TestLabelResource("./log/log.json")
+	err := TestLabelResource("./log/filestore_backup.json")
 	if err != nil {
 		log.Printf("Test failed: %v", err)
 	}
@@ -71,12 +81,6 @@ func TestLabelResource(filePath string) error {
 
 	return nil
 }
-
-//func init() {
-//
-//	functions.CloudEvent("labelResource", labelResource)
-//}
-
 func labelResource(ctx context.Context, ev event.Event) error {
 	// Extract parameters from the Cloud Event and Cloud Audit Log data
 	var msg logstruct.MessagePublishedData
@@ -84,48 +88,40 @@ func labelResource(ctx context.Context, ev event.Event) error {
 		return fmt.Errorf("event.DataAs: %w", err)
 	}
 
-	/*
-		decoded from base64
-	*/
+	//decoded from base64
 	logString := string(msg.Message.Data)
-	/**
-	todo: 1.Persistent Disk "gce_disk"
-	todo: 2.FileStore "audited_resource"
-	todo: 3.cloudStorage "gcs_bucket"
-	todo: 4.CloudSQL "cloudsql_database"
-	todo: 5.SSD
-	todo: 6.MemoryStore
-	todo: 7.Dataproc "gce_project"
-	todo: 8.patchWork 不支持
-	todo: 9.VPC Network
-	todo: 10,GKE "k8s_cluster"
-	todo: 11.Artifact Registry
-	todo: 12.KMS
-	todo: 13 GCE "gce_instance"
-	*/
-	// switch into which function
 
+	// switch into which function
+	serviceName := gjson.Get(logString, "protoPayload.serviceName").String()
 	methodName := gjson.Get(logString, "protoPayload.methodName").String()
-	if strings.Contains(methodName, "compute") {
+	switch serviceName {
+	case "compute.googleapis.com":
 		log.Printf("Get into Compute")
-		/*
-			v1.compute.regionInstances.bulkInsert
-			beta.compute.instances.insert
-			v1.compute.instances.setMachineType
-		*/
-		if strings.Contains(methodName, "instances") || strings.Contains(methodName, "bulkInsert") {
-			log.Printf("Get into Instances")
+		if strings.Contains(methodName, "instance") {
+
+			log.Printf("Get Into Instance")
 			gceLog := new(logstruct.GceLog)
 			err := json.Unmarshal([]byte(logString), gceLog)
 			if err != nil {
 				return err
 			}
-			log.Printf("Get Into GCE")
+			err = gce.InstanceGce(gceLog)
+			if err != nil {
+				return err
+			}
+		} else if strings.Contains(methodName, "bulkInsert") {
+			log.Printf("Get Into Instance")
+			gceLog := new(logstruct.GceLog)
+			err := json.Unmarshal([]byte(logString), gceLog)
+			if err != nil {
+				return err
+			}
 			err = gce.InstanceGce(gceLog)
 			if err != nil {
 				return err
 			}
 		} else if strings.Contains(methodName, "disk") {
+			log.Printf("Get into Disk")
 			diskLog := new(logstruct.DiskLog)
 			err := json.Unmarshal([]byte(logString), diskLog)
 			if err != nil {
@@ -135,10 +131,18 @@ func labelResource(ctx context.Context, ev event.Event) error {
 			if err != nil {
 				return err
 			}
+		} else if strings.Contains(methodName, "addresses") {
+			addressLog := new(logstruct.IpaddressLog)
+			err := json.Unmarshal([]byte(logString), addressLog)
+			if err != nil {
+				return err
+			}
+			err = ipaddress.StaticIp(addressLog)
+			if err != nil {
+				return err
+			}
 		}
-
-	} else if strings.Contains(methodName, "sql") {
-		//  cloudsql.instances.create
+	case "cloudsql.googleapis.com":
 		if gjson.Get(logString, "operation.last").String() == "true" {
 			// instance create Complete
 			sqlLog := new(logstruct.SqlLog)
@@ -151,60 +155,130 @@ func labelResource(ctx context.Context, ev event.Event) error {
 				return err
 			}
 		}
-
-	} else if strings.Contains(methodName, "redis") {
-		// google.cloud.redis.v1.CloudRedis.CreateInstance
-
-		redisLog := new(logstruct.RedisLog)
-		err := json.Unmarshal([]byte(logString), redisLog)
-		if err != nil {
-			return err
-		}
-		err = memory.RedisInstance(redisLog)
-		if err != nil {
-			return err
-		}
-
-	} else if strings.Contains(methodName, "bigquery") {
-		log.Printf("resource Type:" + "bigquery")
-		if strings.Contains(methodName, "Dataset") {
-			log.Printf("Label dataset")
-			datasetLog := new(logstruct.DatasetlogBg)
-			err := json.Unmarshal([]byte(logString), datasetLog)
+	case "redis.googleapis.com":
+		if strings.Contains(methodName, "redis") {
+			// google.cloud.redis.v1.CloudRedis.CreateInstance
+			redisLog := new(logstruct.RedisLog)
+			err := json.Unmarshal([]byte(logString), redisLog)
 			if err != nil {
 				return err
 			}
-			err = bigquery.BigQueryDataset(datasetLog)
+			err = memory.RedisInstance(redisLog)
+			if err != nil {
+				return err
+			}
+
+		}
+	case "bigquery.googleapis.com":
+		if strings.Contains(methodName, "bigquery") {
+			if strings.Contains(methodName, "Dataset") {
+				log.Printf("Label dataset")
+				datasetLog := new(logstruct.DatasetlogBg)
+				err := json.Unmarshal([]byte(logString), datasetLog)
+				if err != nil {
+					return err
+				}
+				err = bigquery.BigQueryDataset(datasetLog)
+				if err != nil {
+					return err
+				}
+			}
+		}
+	case "table.googleapis.com":
+		if strings.Contains(methodName, "table") {
+			log.Printf("Label table")
+			tableLog := new(logstruct.TablelogBG)
+			err := json.Unmarshal([]byte(logString), tableLog)
+			if err != nil {
+				return err
+			}
+			err = bigquery.BigQueryTable(tableLog)
+			if err != nil {
+				return err
+			}
+
+		}
+	case "dataproc.googleapis.com":
+		if strings.Contains(methodName, "dataproc") {
+			log.Printf("resource Type:" + "dataproc")
+			if strings.Contains(methodName, "Cluster") {
+				clusterLog := new(logstruct.ClusterlogDP)
+				err := json.Unmarshal([]byte(logString), clusterLog)
+				if err != nil {
+					return err
+				}
+				err = dataproc.DataprocCluster(clusterLog)
+				if err != nil {
+					return err
+				}
+			} else if strings.Contains(methodName, "Job") {
+				jobLog := new(logstruct.JoblogDP)
+				err := json.Unmarshal([]byte(logString), jobLog)
+				if err != nil {
+					return err
+				}
+				err = dataproc.DataprocJob(jobLog)
+				if err != nil {
+					return err
+				}
+			}
+
+		}
+	case "storage.googleapis.com":
+		if strings.Contains(methodName, "storage") {
+			log.Printf("resource Type:" + "storage")
+			if strings.Contains(methodName, "bucket") {
+				log.Printf("Label bucket")
+				gcsLog := new(logstruct.Gcslog)
+				err := json.Unmarshal([]byte(logString), gcsLog)
+				if err != nil {
+					return err
+				}
+				err = gcs.Bucket(gcsLog)
+				if err != nil {
+					return err
+				}
+			}
+		}
+	case "file.googleapis.com":
+		if strings.Contains(methodName, "CreateInstance") {
+			log.Println("Label filestore's instance")
+			instanceLog := new(logstruct.FilestoreInstanceLog)
+			err := json.Unmarshal([]byte(logString), instanceLog)
+			if err != nil {
+				return err
+			}
+			err = filestore.FilestoreInstance(instanceLog)
 			if err != nil {
 				return err
 			}
 		}
-	} else if strings.Contains(methodName, "table") {
-		log.Printf("Label table")
-		tableLog := new(logstruct.TablelogBG)
-		err := json.Unmarshal([]byte(logString), tableLog)
-		if err != nil {
-			return err
+		if strings.Contains(methodName, "CreateBackup") {
+			log.Println("Label filestore's backup")
+			backupLog := new(logstruct.FilestoreBackupLog)
+			err := json.Unmarshal([]byte(logString), backupLog)
+			if err != nil {
+				return err
+			}
+			err = filestore.FilestoreBackup(backupLog)
+			if err != nil {
+				return err
+			}
 		}
-		err = bigquery.BigQueryTable(tableLog)
-		if err != nil {
-			return err
+	case "container.googleapis.com":
+		if strings.Contains(methodName, "container") {
+			log.Printf("label gke")
+			gkeLog := new(logstruct.Gkelog)
+			err := json.Unmarshal([]byte(logString), gkeLog)
+			if err != nil {
+				return err
+			}
+			err = gke.GKE_Cluster(gkeLog)
+			if err != nil {
+				return err
+			}
 		}
-
-	} else if strings.Contains(methodName, "container") {
-		log.Printf("label gke")
-		gkeLog := new(logstruct.Gkelog)
-		err := json.Unmarshal([]byte(logString), gkeLog)
-		if err != nil {
-			return err
-		}
-		err = gke.GKE_Cluster(gkeLog)
-		if err != nil {
-			return err
-		}
-	} else {
-		log.Printf("Excluded")
 	}
-	return nil
 
+	return nil
 }
