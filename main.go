@@ -8,6 +8,7 @@ import (
 	"clzrt.io/autolabel/database/bigquery"
 	"clzrt.io/autolabel/database/memory"
 	"clzrt.io/autolabel/database/sql"
+	"clzrt.io/autolabel/devops/deploy"
 	"clzrt.io/autolabel/security/apigateway"
 	"clzrt.io/autolabel/storage/ar"
 	"clzrt.io/autolabel/storage/disk"
@@ -32,7 +33,7 @@ import (
 
 func main() {
 	// Call the test function with the path to your JSON file
-	err := TestLabelResource("./log/log-gateway.json")
+	err := TestLabelResource("./log/deploy-rollout.json")
 	if err != nil {
 		log.Printf("Test failed: %v", err)
 	}
@@ -324,6 +325,31 @@ func labelResource(ctx context.Context, ev event.Event) error {
 				return err
 			}
 		}
+	case "clouddeploy.googleapis.com":
+		if strings.Contains(methodName, "Target") {
+			log.Printf("label Target")
+			targetlog := new(logstruct.TargetLog)
+			err := json.Unmarshal([]byte(logString), targetlog)
+			if err != nil {
+				return err
+			}
+			err = deploy.Target(targetlog)
+			if err != nil {
+				return err
+			}
+		} else if strings.Contains(methodName, "Rollout") {
+			log.Printf("label Target from Rollout")
+			rolloutLog := new(logstruct.RolloutLog)
+			err := json.Unmarshal([]byte(logString), rolloutLog)
+			if err != nil {
+				return err
+			}
+			err = deploy.Rollout(rolloutLog)
+			if err != nil {
+				return err
+			}
+		}
+
 	}
 
 	return nil
