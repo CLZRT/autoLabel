@@ -1,0 +1,132 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {
+
+    },
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com",
+      "principalSubject": "user:zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "57.180.241.185",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe)",
+      "requestAttributes": {
+        "time": "2024-06-03T08:03:00.746046Z",
+        "auth": {
+
+        }
+      },
+      "destinationAttributes": {
+
+      }
+    },
+    "serviceName": "dataproc.googleapis.com",
+    "methodName": "google.cloud.dataproc.v1.ClusterController.CreateCluster",
+    "authorizationInfo": [
+      {
+        "permission": "",dataproc.clusters.create,
+        "granted": true,
+        "resourceAttributes": {
+
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/autolabel-project/regions/us-central1/clusters/cluster-ruitao",
+    "request": {
+      "cluster": {
+        "projectId": "autolabel-project",
+        "clusterName": "cluster-ruitao",
+        "config": {
+          "gceClusterConfig": {
+            "subnetworkUri": "us-central-1",
+            "internalIpOnly": true,
+            "shieldedInstanceConfig": {
+              "enableSecureBoot": false,
+              "enableVtpm": false,
+              "enableIntegrityMonitoring": false
+            }
+          },
+          "masterConfig": {
+            "numInstances": 1,
+            "machineTypeUri": "n2-standard-4",
+            "diskConfig": {
+              "bootDiskSizeGb": 500,
+              "bootDiskType": "pd-balanced"
+            }
+          },
+          "workerConfig": {
+            "numInstances": 2,
+            "machineTypeUri": "n2-standard-4",
+            "diskConfig": {
+              "bootDiskSizeGb": 500,
+              "bootDiskType": "pd-balanced"
+            }
+          },
+          "secondaryWorkerConfig": {
+
+          },
+          "softwareConfig": {
+            "imageVersion": "2.2-debian12"
+          },
+          "encryptionConfig": {
+
+          },
+          "securityConfig": {
+            "kerberosConfig": {
+
+            }
+          },
+          "lifecycleConfig": {
+
+          },
+          "autoscalingConfig": {
+
+          },
+          "endpointConfig": {
+
+          }
+        },
+        "status": {
+
+        },
+        "statusHistory": [
+          {
+
+          }
+        ],
+        "metrics": {
+
+        }
+      },
+      "region": "us-central1",
+      "projectId": "autolabel-project",
+      "@type": "type.googleapis.com/google.cloud.dataproc.v1.CreateClusterRequest"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1"
+      ]
+    }
+  },
+  "insertId": "-5jnh4qdyvd6",
+  "resource": {
+    "type": "cloud_dataproc_cluster",
+    "labels": {
+      "cluster_uuid": "842041fb-f516-4df2-bcb1-eae846b54812",
+      "project_id": "autolabel-project",
+      "region": "us-central1",
+      "cluster_name": "cluster-ruitao"
+    }
+  },
+  "timestamp": "2024-06-03T08:02:59.354059Z",
+  "severity": "NOTICE",
+  "logName": "projects/autolabel-project/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "projects/autolabel-project/regions/us-central1/operations/95eb4cdd-e91b-43c6-ad4d-348eb45003ab",
+    "producer": "dataproc.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2024-06-03T08:03:01.225653597Z"
+}

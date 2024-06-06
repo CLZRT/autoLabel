@@ -1,0 +1,68 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "::1",
+      "requestAttributes": {
+        "time": "2024-06-05T09:05:49.709220230Z",
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "apigateway.googleapis.com",
+    "methodName": "google.cloud.apigateway.v1.ApiGatewayService.CreateApi",
+    "authorizationInfo": [
+      {
+        "resource": "projects/testftl-4-6/locations/global/apis/gateway-ruitao",
+        "permission": "apigateway.apis.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "apigateway.googleapis.com",
+          "name": "projects/testftl-4-6/locations/global/apis/gateway-ruitao"
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-4-6/locations/global/apis/gateway-ruitao",
+    "request": {
+      "parent": "projects/testftl-4-6/locations/global",
+      "api_id": "gateway-ruitao",
+      "api": {
+        "name": "projects/testftl-4-6/locations/global/apis/gateway-ruitao",
+        "display_name": "gateway-ruitao"
+      },
+      "@type": "type.googleapis.com/google.cloud.apigateway.v1.CreateApiRequest"
+    },
+    "response": {
+      "@type": "type.googleapis.com/google.longrunning.Operation"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "global"
+      ]
+    }
+  },
+  "insertId": "e5xqjmd1ki8",
+  "resource": {
+    "type": "audited_resource",
+    "labels": {
+      "project_id": "testftl-4-6",
+      "method": "google.cloud.apigateway.v1.ApiGatewayService.CreateApi",
+      "service": "apigateway.googleapis.com"
+    }
+  },
+  "timestamp": "2024-06-05T09:05:52.806012903Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "projects/testftl-4-6/locations/global/operations/operation-1717578349709-61a20df688912-e721ba4c-2d701952",
+    "producer": "apigateway.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2024-06-05T09:05:53.303883298Z"
+}

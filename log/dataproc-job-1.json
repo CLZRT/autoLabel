@@ -1,0 +1,93 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com",
+      "principalSubject": "user:zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "57.180.241.185",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe)",
+      "requestAttributes": {
+        "time": "2024-06-04T02:01:43.404914Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "dataproc.googleapis.com",
+    "methodName": "google.cloud.dataproc.v1.JobController.SubmitJob",
+    "authorizationInfo": [
+      {
+        "permission": "dataproc.jobs.create",
+        "granted": true,
+        "resourceAttributes": {},
+        "permissionType": "ADMIN_WRITE"
+      },
+      {
+        "permission": "dataproc.clusters.use",
+        "granted": true,
+        "resourceAttributes": {},
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-4-6/regions/us-central1/jobs/job-54cada48",
+    "request": {
+      "job": {
+        "reference": {
+          "projectId": "testftl-4-6",
+          "jobId": "job-54cada48"
+        },
+        "placement": {
+          "clusterName": "cluster-a467"
+        },
+        "hadoopJob": {
+          "mainClass": "com.example.wordcount"
+        }
+      },
+      "region": "us-central1",
+      "projectId": "testftl-4-6",
+      "@type": "type.googleapis.com/google.cloud.dataproc.v1.SubmitJobRequest"
+    },
+    "response": {
+      "reference": {
+        "projectId": "testftl-4-6",
+        "jobId": "job-54cada48"
+      },
+      "hadoopJob": {
+        "mainClass": "com.example.wordcount"
+      },
+      "jobUuid": "1bdac8bd-f995-49f5-b2ba-23ed25700aa7",
+      "driverControlFilesUri": "gs://dataproc-staging-us-central1-748418205778-xxggtq6b/google-cloud-dataproc-metainfo/b3538792-0aef-43c6-ba8b-28d351c735d7/jobs/job-54cada48/",
+      "placement": {
+        "clusterName": "cluster-a467",
+        "clusterUuid": "b3538792-0aef-43c6-ba8b-28d351c735d7"
+      },
+      "driverOutputResourceUri": "gs://dataproc-staging-us-central1-748418205778-xxggtq6b/google-cloud-dataproc-metainfo/b3538792-0aef-43c6-ba8b-28d351c735d7/jobs/job-54cada48/driveroutput",
+      "status": {
+        "state": "PENDING",
+        "stateStartTime": "2024-06-04T02:01:43.365456Z"
+      },
+      "@type": "type.googleapis.com/google.cloud.dataproc.v1.Job"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1"
+      ]
+    }
+  },
+  "insertId": "-a99f9ce1nqoa",
+  "resource": {
+    "type": "cloud_dataproc_cluster",
+    "labels": {
+      "region": "us-central1",
+      "cluster_uuid": "b3538792-0aef-43c6-ba8b-28d351c735d7",
+      "cluster_name": "cluster-a467",
+      "project_id": "testftl-4-6"
+    }
+  },
+  "timestamp": "2024-06-04T02:01:43.331058Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2024-06-04T02:01:43.672175200Z"
+}

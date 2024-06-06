@@ -1,0 +1,69 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "requestAttributes": {},
+      "destinationAttributes": {}
+    },
+    "serviceName": "clouddeploy.googleapis.com",
+    "methodName": "google.cloud.deploy.v1.CloudDeploy.CreateTarget",
+    "resourceName": "projects/testftl-4-6/locations/us-central1/targets/demo-ruitao-target-1",
+    "response": {
+      "updateTime": "2024-06-06T03:20:07.532437999Z",
+      "gke": {
+        "cluster": "projects/testftl-4-6/locations/us-central1/clusters/autopilot-cluster-1"
+      },
+      "name": "projects/testftl-4-6/locations/us-central1/targets/demo-ruitao-target-1",
+      "uid": "0745d7d71cd843b38b6248443f440831",
+      "etag": "da630b0a3a4c66ea",
+      "executionConfigs": [
+        {
+          "executionTimeout": "3600s",
+          "usages": [
+            "RENDER",
+            "DEPLOY",
+            "VERIFY",
+            "PREDEPLOY",
+            "POSTDEPLOY"
+          ],
+          "defaultPool": {
+            "serviceAccount": "748418205778-compute@developer.gserviceaccount.com",
+            "artifactStorage": "gs://us-central1.deploy-artifacts.testftl-4-6.appspot.com"
+          },
+          "serviceAccount": "748418205778-compute@developer.gserviceaccount.com",
+          "artifactStorage": "gs://us-central1.deploy-artifacts.testftl-4-6.appspot.com"
+        }
+      ],
+      "targetId": "demo-ruitao-target-1",
+      "createTime": "2024-06-06T03:20:07.532437999Z",
+      "@type": "type.googleapis.com/google.cloud.deploy.v1.Target"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1"
+      ]
+    }
+  },
+  "insertId": "1necxaxe212x0",
+  "resource": {
+    "type": "audited_resource",
+    "labels": {
+      "project_id": "testftl-4-6",
+      "service": "clouddeploy.googleapis.com",
+      "method": "google.cloud.deploy.v1.CloudDeploy.CreateTarget"
+    }
+  },
+  "timestamp": "2024-06-06T03:20:08.231147461Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "projects/testftl-4-6/locations/us-central1/operations/operation-1717644007527-61a3028eb52dd-09f9a009-7798e384",
+    "producer": "clouddeploy.googleapis.com",
+    "last": true
+  },
+  "receiveTimestamp": "2024-06-06T03:20:08.562195843Z"
+}

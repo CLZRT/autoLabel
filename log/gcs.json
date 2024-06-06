@@ -1,0 +1,104 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "57.180.241.185",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe),gzip(gfe)",
+      "requestAttributes": {
+        "time": "2024-06-04T07:44:18.631215836Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "storage.googleapis.com",
+    "methodName": "storage.buckets.create",
+    "authorizationInfo": [
+      {
+        "resource": "projects/_/buckets/test-ruitao",
+        "permission": "storage.buckets.create",
+        "granted": true,
+        "resourceAttributes": {}
+      }
+    ],
+    "resourceName": "projects/_/buckets/test-ruitao",
+    "serviceData": {
+      "@type": "type.googleapis.com/google.iam.v1.logging.AuditData",
+      "policyDelta": {
+        "bindingDeltas": [
+          {
+            "action": "ADD",
+            "role": "roles/storage.legacyBucketOwner",
+            "member": "projectEditor:testftl-4-6"
+          },
+          {
+            "action": "ADD",
+            "role": "roles/storage.legacyBucketOwner",
+            "member": "projectOwner:testftl-4-6"
+          },
+          {
+            "action": "ADD",
+            "role": "roles/storage.legacyBucketReader",
+            "member": "projectViewer:testftl-4-6"
+          },
+          {
+            "action": "ADD",
+            "role": "roles/storage.legacyObjectOwner",
+            "member": "projectEditor:testftl-4-6"
+          },
+          {
+            "action": "ADD",
+            "role": "roles/storage.legacyObjectOwner",
+            "member": "projectOwner:testftl-4-6"
+          },
+          {
+            "action": "ADD",
+            "role": "roles/storage.legacyObjectReader",
+            "member": "projectViewer:testftl-4-6"
+          }
+        ]
+      }
+    },
+    "request": {
+      "defaultObjectAcl": {
+        "@type": "type.googleapis.com/google.iam.v1.Policy",
+        "bindings": [
+          {
+            "role": "roles/storage.legacyObjectReader",
+            "members": [
+              "projectViewer:testftl-4-6"
+            ]
+          },
+          {
+            "members": [
+              "projectOwner:testftl-4-6",
+              "projectEditor:testftl-4-6"
+            ],
+            "role": "roles/storage.legacyObjectOwner"
+          }
+        ]
+      }
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-east1"
+      ]
+    }
+  },
+  "insertId": "198eqvpe1t3bp",
+  "resource": {
+    "type": "gcs_bucket",
+    "labels": {
+      "location": "us-east1",
+      "project_id": "testftl-4-6",
+      "bucket_name": "test-ruitao"
+    }
+  },
+  "timestamp": "2024-06-04T07:44:18.617184106Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2024-06-04T07:44:20.138403825Z"
+}

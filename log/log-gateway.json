@@ -1,0 +1,67 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {
+      "code": 3,
+      "message": "Cannot convert to service config.\n'location: \"unknown location\"\nkind: ERROR\nmessage: \"Unable to parse the content. Unrecognized token \\'swagger\\': was expecting (JSON String, Number, Array, Object or token \\'null\\', \\'true\\' or \\'false\\')\\n at [Source: (String)\\\"swagger: \\\"2.0\\\"\\r\\ninfo:\\r\\n  title: Sample API\\r\\n  description: API description in Markdown.\\r\\n  version: 1.0.0\\r\\nhost: api.example.com\\r\\nbasePath: /v1\\r\\nschemes:\\r\\n  - https\\r\\npaths:\\r\\n  /users:\\r\\n    get:\\r\\n      summary: Returns a list of users.\\r\\n      description: Optional extended description in Markdown.\\r\\n      produces:\\r\\n        - application/json\\r\\n      responses:\\r\\n        200:\\r\\n          description: OK\\\"; line: 1, column: 8]\"\n'\ncom.google.apps.framework.request.BadRequestException: Cannot convert to service config.\n'location: \"unknown location\"\nkind: ERROR\nmessage: \"Unable to parse the content. Unrecognized token \\'swagger\\': was expecting (JSON String, Number, Array, Object or token \\'null\\', \\'true\\' or \\'false\\')\\n at [Source: (String)\\\"swagger: \\\"2.0\\\"\\r\\ninfo:\\r\\n  title: Sample API\\r\\n  description: API description in Markdown.\\r\\n  version: 1.0.0\\r\\nhost: api.example.com\\r\\nbasePath: /v1\\r\\nschemes:\\r\\n  - https\\r\\npaths:\\r\\n  /users:\\r\\n    get:\\r\\n      summary: Returns a list of users.\\r\\n      description: Optional extended description in Markdown.\\r\\n      produces:\\r\\n        - application/json\\r\\n      responses:\\r\\n        200:\\r\\n          description: OK\\\"; line: 1, column: 8]\"\n'"
+    },
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "::1",
+      "requestAttributes": {
+        "time": "2024-06-05T09:49:32.735041135Z",
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "apigateway.googleapis.com",
+    "methodName": "google.cloud.apigateway.v1.ApiGatewayService.CreateApiConfig",
+    "authorizationInfo": [
+      {
+        "resource": "projects/testftl-4-6/locations/global/apis/gateway-ruitao/configs/hello",
+        "permission": "apigateway.apiconfigs.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "apigateway.googleapis.com",
+          "name": "projects/testftl-4-6/locations/global/apis/gateway-ruitao/configs/hello"
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-4-6/locations/global/apis/gateway-ruitao/configs/hello",
+    "request": {
+      "@type": "type.googleapis.com/google.cloud.apigateway.v1.CreateApiConfigRequest",
+      "parent": "projects/testftl-4-6/locations/global/apis/gateway-ruitao",
+      "api_config_id": "hello",
+      "api_config": {
+        "name": "hello",
+        "display_name": "hello",
+        "gateway_service_account": "748418205778-compute@developer.gserviceaccount.com"
+      }
+    },
+    "response": {
+      "@type": "type.googleapis.com/google.longrunning.Operation"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "global"
+      ]
+    }
+  },
+  "insertId": "q3xr37cmnm",
+  "resource": {
+    "type": "audited_resource",
+    "labels": {
+      "service": "apigateway.googleapis.com",
+      "method": "google.cloud.apigateway.v1.ApiGatewayService.CreateApiConfig",
+      "project_id": "testftl-4-6"
+    }
+  },
+  "timestamp": "2024-06-05T09:49:33.064280285Z",
+  "severity": "ERROR",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2024-06-05T09:49:33.664316083Z"
+}

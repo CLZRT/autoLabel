@@ -26,7 +26,7 @@ import (
 //		//Todo: new error excluded
 //		return nil
 //	}
-func DataprocCluster(logAudit *logstruct.ClusterlogDP) error {
+func Cluster(logAudit *logstruct.ClusterlogDP) error {
 
 	resourceNameArray := strings.Split(logAudit.ProtoPayload.ResourceName, "/")
 	clusterLocation := map[string]string{

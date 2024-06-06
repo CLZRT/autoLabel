@@ -1,0 +1,58 @@
+protoPayload.@type="type.googleapis.com/google.cloud.audit.AuditLog" AND
+protoPayload.@type="type.googleapis.com/google.cloud.audit.AuditLog" AND
+(
+protoPayload.serviceName="compute.googleapis.com" AND
+        (
+        protoPayload.methodName =~ ".*instances.insert" OR
+        protoPayload.methodName =~ ".*regionInstances.bulkInsert" OR
+        protoPayload.methodName =~ ".*instances.setMachineType" OR
+        protoPayload.methodName =~ ".*instances.create" OR
+        protoPayload.methodName =~ ".*disks.insert" OR
+        protoPayload.methodName =~ ".*addresses.insert"
+        )OR
+protoPayload.serviceName="cloudsql.googleapis.com" AND
+        (
+        protoPayload.methodName =~ ".*instances.create"
+        protoPayload.methodName =~ ".*instances.update"
+        )OR
+protoPayload.serviceName="redis.googleapis.com" AND
+        (
+        protoPayload.methodName =~ ".*CreateInstance" OR
+        protoPayload.methodName =~ ".*UpdateInstance"
+        )OR
+protoPayload.serviceName="bigquery.googleapis.com" AND
+        (
+        protoPayload.methodName =~ ".*InsertDataset" OR
+        protoPayload.methodName =~ ".*table"
+        )OR
+protoPayload.serviceName="dataproc.googleapis.com" AND
+        (
+         protoPayload.methodName =~ ".*CreateCLuster"
+        )OR
+protoPayload.serviceName="storage.googleapis.com" AND
+        (
+        protoPayload.methodName =~ ".*buckets.create"
+        )OR
+protoPayload.serviceName="file.googleapis.com" AND
+       (
+       protoPayload.methodName =~ ".*CreateInstance" OR
+       protoPayload.methodName =~ ".*CreateBackup"
+       )OR
+protoPayload.serviceName="container.googleapis.com" AND
+        (
+        protoPayload.methodName =~ ".*CreateCluster"
+        )OR
+protoPayload.serviceName="artifactregistry.googleapis.com" AND
+      (
+       protoPayload.methodName =~ ".*CreateRepository"
+      )OR
+protoPayload.serviceName="apigateway.googleapis.com" AND
+     (
+     protoPayload.methodName =~ ".*CreateApi"
+     )OR
+protoPayload.serviceName="clouddeploy.googleapis.com" AND
+     (
+     protoPayload.methodName =~ ".*CreateRollout" OR
+     protoPayload.methodName =~ ".*CreateTarget"
+     )
+)

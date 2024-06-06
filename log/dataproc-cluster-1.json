@@ -1,0 +1,107 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "chenzeming@ftl-cloud.com",
+      "principalSubject": "user:chenzeming@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "18.163.77.27",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe)",
+      "requestAttributes": {
+        "time": "2024-06-04T01:35:18.625237Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "dataproc.googleapis.com",
+    "methodName": "google.cloud.dataproc.v1.ClusterController.CreateCluster",
+    "authorizationInfo": [
+      {
+        "permission": "dataproc.clusters.create",
+        "granted": true,
+        "resourceAttributes": {},
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-4-6/regions/us-central1/clusters/cluster-a467",
+    "request": {
+      "cluster": {
+        "projectId": "testftl-4-6",
+        "clusterName": "cluster-a467",
+        "config": {
+          "gceClusterConfig": {
+            "networkUri": "default",
+            "internalIpOnly": false,
+            "shieldedInstanceConfig": {
+              "enableSecureBoot": false,
+              "enableVtpm": false,
+              "enableIntegrityMonitoring": false
+            }
+          },
+          "masterConfig": {
+            "numInstances": 1,
+            "machineTypeUri": "n2-standard-2",
+            "diskConfig": {
+              "bootDiskSizeGb": 30,
+              "bootDiskType": "pd-balanced"
+            }
+          },
+          "workerConfig": {
+            "numInstances": 2,
+            "machineTypeUri": "n2-standard-2",
+            "diskConfig": {
+              "bootDiskSizeGb": 30,
+              "bootDiskType": "pd-balanced",
+              "localSsdInterface": "SCSI"
+            }
+          },
+          "secondaryWorkerConfig": {},
+          "softwareConfig": {
+            "imageVersion": "2.1-debian11"
+          },
+          "encryptionConfig": {},
+          "securityConfig": {
+            "kerberosConfig": {}
+          },
+          "lifecycleConfig": {},
+          "autoscalingConfig": {},
+          "endpointConfig": {}
+        },
+        "status": {},
+        "statusHistory": [
+          {}
+        ],
+        "metrics": {}
+      },
+      "region": "us-central1",
+      "projectId": "testftl-4-6",
+      "@type": "type.googleapis.com/google.cloud.dataproc.v1.CreateClusterRequest"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1"
+      ]
+    }
+  },
+  "insertId": "7rqbblegh7m4",
+  "resource": {
+    "type": "cloud_dataproc_cluster",
+    "labels": {
+      "cluster_name": "cluster-a467",
+      "cluster_uuid": "b3538792-0aef-43c6-ba8b-28d351c735d7",
+      "project_id": "testftl-4-6",
+      "region": "us-central1"
+    }
+  },
+  "timestamp": "2024-06-04T01:35:17.412863Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "projects/testftl-4-6/regions/us-central1/operations/cad1f29f-2ce8-495b-96ea-c799c3dc3332",
+    "producer": "dataproc.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2024-06-04T01:35:18.817104556Z"
+}
