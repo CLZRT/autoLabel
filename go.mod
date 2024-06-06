@@ -5,6 +5,7 @@ go 1.22.3
 require (
 	clzrt.io/autolabel/compute v0.0.0
 	clzrt.io/autolabel/database v0.0.0
+	clzrt.io/autolabel/devops v0.0.0
 	clzrt.io/autolabel/security v0.0.0
 	clzrt.io/autolabel/storage v0.0.0
 	clzrt.io/autolabel/struct v0.0.0
@@ -24,6 +25,7 @@ require (
 	cloud.google.com/go/compute/metadata v0.3.0 // indirect
 	cloud.google.com/go/container v1.35.1 // indirect
 	cloud.google.com/go/dataproc v1.12.0 // indirect
+	cloud.google.com/go/deploy v1.19.0 // indirect
 	cloud.google.com/go/filestore v1.8.3 // indirect
 	cloud.google.com/go/iam v1.1.8 // indirect
 	cloud.google.com/go/longrunning v0.5.7 // indirect
@@ -80,6 +82,7 @@ require (
 replace (
 	clzrt.io/autolabel/compute => ./compute
 	clzrt.io/autolabel/database => ./database
+	clzrt.io/autolabel/devops => ./devops
 	clzrt.io/autolabel/security => ./security
 	clzrt.io/autolabel/storage => ./storage
 	clzrt.io/autolabel/struct => ./struct

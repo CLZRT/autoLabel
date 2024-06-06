@@ -3,7 +3,6 @@ package gce
 import (
 	"clzrt.io/autolabel/storage/disk"
 	"clzrt.io/autolabel/struct/logstruct"
-	"encoding/json"
 	"log"
 	"regexp"
 	"strconv"
@@ -39,17 +38,18 @@ func InstanceGce(logAudit *logstruct.GceLog) error {
 	labels := map[string]string{}
 
 	// 判断 实例是否存在标签
-	Labelbytes, _ := json.Marshal(logAudit.Resource.Labels)
-	if string(Labelbytes) != "" {
-		json.Unmarshal([]byte(Labelbytes), &labels)
-		labels["updated-by"] = operatorString
-		labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
-
-	} else {
+	existLabels := instance.GetLabels()
+	if existLabels == nil {
 		labels["created-by"] = operatorString
 		labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
 		labels["instance-id"] = instanceId
 		labels["instance-name"] = instance.GetName()
+	} else {
+		for k, v := range existLabels {
+			labels[k] = v
+		}
+		labels["updated-by"] = operatorString
+		labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
 	}
 	log.Printf("labels: %v", labels)
 	log.Printf("get entry in setInstanceLabel")
