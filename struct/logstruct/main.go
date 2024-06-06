@@ -1169,3 +1169,135 @@ type FilestoreBackupLog struct {
 	} `json:"operation"`
 	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
 }
+type ApigatewayLog struct {
+	ProtoPayload struct {
+		Type   string `json:"@type"`
+		Status struct {
+		} `json:"status"`
+		AuthenticationInfo struct {
+			PrincipalEmail string `json:"principalEmail"`
+		} `json:"authenticationInfo"`
+		RequestMetadata struct {
+			CallerIp          string `json:"callerIp"`
+			RequestAttributes struct {
+				Time   time.Time `json:"time"`
+				Reason string    `json:"reason"`
+				Auth   struct {
+				} `json:"auth"`
+			} `json:"requestAttributes"`
+			DestinationAttributes struct {
+			} `json:"destinationAttributes"`
+		} `json:"requestMetadata"`
+		ServiceName       string `json:"serviceName"`
+		MethodName        string `json:"methodName"`
+		AuthorizationInfo []struct {
+			Resource           string `json:"resource"`
+			Permission         string `json:"permission"`
+			Granted            bool   `json:"granted"`
+			ResourceAttributes struct {
+				Service string `json:"service"`
+				Name    string `json:"name"`
+			} `json:"resourceAttributes"`
+			PermissionType string `json:"permissionType"`
+		} `json:"authorizationInfo"`
+		ResourceName string `json:"resourceName"`
+		Request      struct {
+			Parent string `json:"parent"`
+			ApiId  string `json:"api_id"`
+			Api    struct {
+				Name        string `json:"name"`
+				DisplayName string `json:"display_name"`
+			} `json:"api"`
+			Type string `json:"@type"`
+		} `json:"request"`
+		Response struct {
+			Type string `json:"@type"`
+		} `json:"response"`
+		ResourceLocation struct {
+			CurrentLocations []string `json:"currentLocations"`
+		} `json:"resourceLocation"`
+	} `json:"protoPayload"`
+	InsertId string `json:"insertId"`
+	Resource struct {
+		Type   string `json:"type"`
+		Labels struct {
+			ProjectId string `json:"project_id"`
+			Method    string `json:"method"`
+			Service   string `json:"service"`
+		} `json:"labels"`
+	} `json:"resource"`
+	Timestamp time.Time `json:"timestamp"`
+	Severity  string    `json:"severity"`
+	LogName   string    `json:"logName"`
+	Operation struct {
+		Id       string `json:"id"`
+		Producer string `json:"producer"`
+		First    bool   `json:"first"`
+	} `json:"operation"`
+	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
+}
+type GatewayLog struct {
+	ProtoPayload struct {
+		Type   string `json:"@type"`
+		Status struct {
+			Code    int    `json:"code"`
+			Message string `json:"message"`
+		} `json:"status"`
+		AuthenticationInfo struct {
+			PrincipalEmail string `json:"principalEmail"`
+		} `json:"authenticationInfo"`
+		RequestMetadata struct {
+			CallerIp          string `json:"callerIp"`
+			RequestAttributes struct {
+				Time   time.Time `json:"time"`
+				Reason string    `json:"reason"`
+				Auth   struct {
+				} `json:"auth"`
+			} `json:"requestAttributes"`
+			DestinationAttributes struct {
+			} `json:"destinationAttributes"`
+		} `json:"requestMetadata"`
+		ServiceName       string `json:"serviceName"`
+		MethodName        string `json:"methodName"`
+		AuthorizationInfo []struct {
+			Resource           string `json:"resource"`
+			Permission         string `json:"permission"`
+			Granted            bool   `json:"granted"`
+			ResourceAttributes struct {
+				Service string `json:"service"`
+				Name    string `json:"name"`
+			} `json:"resourceAttributes"`
+			PermissionType string `json:"permissionType"`
+		} `json:"authorizationInfo"`
+		ResourceName string `json:"resourceName"`
+		Request      struct {
+			Type        string `json:"@type"`
+			Parent      string `json:"parent"`
+			ApiConfigId string `json:"api_config_id"`
+			ApiConfig   struct {
+				Name                  string `json:"name"`
+				DisplayName           string `json:"display_name"`
+				GatewayServiceAccount string `json:"gateway_service_account"`
+			} `json:"api_config"`
+		} `json:"request"`
+		Response struct {
+			Type string `json:"@type"`
+		} `json:"response"`
+		ResourceLocation struct {
+			CurrentLocations []string `json:"currentLocations"`
+		} `json:"resourceLocation"`
+	} `json:"protoPayload"`
+	InsertId string `json:"insertId"`
+	Resource struct {
+		Type   string `json:"type"`
+		Labels struct {
+			Service   string `json:"service"`
+			Method    string `json:"method"`
+			ProjectId string `json:"project_id"`
+		} `json:"labels"`
+	} `json:"resource"`
+	Timestamp        time.Time `json:"timestamp"`
+	Severity         string    `json:"severity"`
+	LogName          string    `json:"logName"`
+	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
+}

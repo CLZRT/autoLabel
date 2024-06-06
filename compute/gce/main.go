@@ -3,6 +3,7 @@ package gce
 import (
 	"clzrt.io/autolabel/storage/disk"
 	"clzrt.io/autolabel/struct/logstruct"
+	"encoding/json"
 	"log"
 	"regexp"
 	"strconv"
@@ -28,18 +29,27 @@ func InstanceGce(logAudit *logstruct.GceLog) error {
 	}
 
 	// extra info from logstruct
-	creator := logAudit.ProtoPayload.AuthenticationInfo.PrincipalEmail
+	operator := logAudit.ProtoPayload.AuthenticationInfo.PrincipalEmail
 	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9-]+")
-	creatorString := labelSanitizer.ReplaceAllString(strings.ToLower(creator), "-")
+	operatorString := labelSanitizer.ReplaceAllString(strings.ToLower(operator), "-")
 	instanceId := logAudit.Resource.Labels.InstanceId
 	machineTypeArray := strings.Split(instance.GetMachineType(), "/")
 	// setInstanceLabel
 	labelFingerprint := instance.GetLabelFingerprint()
-	labels := map[string]string{
-		"created-by":    creatorString,
-		"machine-type":  machineTypeArray[len(machineTypeArray)-1],
-		"instance-id":   instanceId,
-		"instance-name": instance.GetName(),
+	labels := map[string]string{}
+
+	// 判断 实例是否存在标签
+	Labelbytes, _ := json.Marshal(logAudit.Resource.Labels)
+	if string(Labelbytes) != "" {
+		json.Unmarshal([]byte(Labelbytes), &labels)
+		labels["updated-by"] = operatorString
+		labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
+
+	} else {
+		labels["created-by"] = operatorString
+		labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
+		labels["instance-id"] = instanceId
+		labels["instance-name"] = instance.GetName()
 	}
 	log.Printf("labels: %v", labels)
 	log.Printf("get entry in setInstanceLabel")
@@ -65,7 +75,7 @@ func InstanceGce(logAudit *logstruct.GceLog) error {
 		}
 		fingerprint := getDisk.GetLabelFingerprint()
 		labelsDisk := map[string]string{
-			"created-by":    creatorString,
+			"created-by":    operatorString,
 			"size-gb":       strconv.FormatInt(diskInfo.GetDiskSizeGb(), 10),
 			"instance-id":   instanceId,
 			"instance-name": instance.GetName(),

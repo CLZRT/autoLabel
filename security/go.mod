@@ -2,7 +2,11 @@ module clzrt.io/autolabel/security
 
 go 1.22.3
 
-require cloud.google.com/go/apigateway v1.6.7
+require (
+	cloud.google.com/go/apigateway v1.6.7
+	clzrt.io/autolabel/struct v0.0.0
+	google.golang.org/protobuf v1.34.1
+)
 
 require (
 	cloud.google.com/go v0.114.0 // indirect
@@ -35,5 +39,6 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20240513163218-0867130af1f8 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240528184218-531527333157 // indirect
 	google.golang.org/grpc v1.64.0 // indirect
-	google.golang.org/protobuf v1.34.1 // indirect
 )
+
+replace clzrt.io/autolabel/struct => ../struct
