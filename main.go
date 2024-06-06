@@ -8,6 +8,7 @@ import (
 	"clzrt.io/autolabel/database/bigquery"
 	"clzrt.io/autolabel/database/memory"
 	"clzrt.io/autolabel/database/sql"
+	"clzrt.io/autolabel/security/apigateway"
 	"clzrt.io/autolabel/storage/ar"
 	"clzrt.io/autolabel/storage/disk"
 	"clzrt.io/autolabel/storage/filestore"
@@ -31,7 +32,7 @@ import (
 
 func main() {
 	// Call the test function with the path to your JSON file
-	err := TestLabelResource("./log/log.json")
+	err := TestLabelResource("./log/log-gateway.json")
 	if err != nil {
 		log.Printf("Test failed: %v", err)
 	}
@@ -295,6 +296,30 @@ func labelResource(ctx context.Context, ev event.Event) error {
 				return err
 			}
 			err = ar.Artifactregistry(arLog)
+			if err != nil {
+				return err
+			}
+		}
+	case "apigateway.googleapis.com":
+		if strings.Contains(methodName, "CreateApiConfig") {
+			log.Printf("label Gateway")
+			gatewaylog := new(logstruct.GatewayLog)
+			err := json.Unmarshal([]byte(logString), gatewaylog)
+			if err != nil {
+				return err
+			}
+			err = apigateway.Gateway(gatewaylog)
+			if err != nil {
+				return err
+			}
+		} else if strings.Contains(methodName, "CreateApi") {
+			log.Printf("label apis")
+			apislog := new(logstruct.ApigatewayLog)
+			err := json.Unmarshal([]byte(logString), apislog)
+			if err != nil {
+				return err
+			}
+			err = apigateway.Api(apislog)
 			if err != nil {
 				return err
 			}
