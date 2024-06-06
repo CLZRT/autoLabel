@@ -1301,3 +1301,133 @@ type GatewayLog struct {
 	LogName          string    `json:"logName"`
 	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
 }
+type RolloutLog struct {
+	ProtoPayload struct {
+		Type   string `json:"@type"`
+		Status struct {
+		} `json:"status"`
+		AuthenticationInfo struct {
+			PrincipalEmail string `json:"principalEmail"`
+		} `json:"authenticationInfo"`
+		RequestMetadata struct {
+			RequestAttributes struct {
+			} `json:"requestAttributes"`
+			DestinationAttributes struct {
+			} `json:"destinationAttributes"`
+		} `json:"requestMetadata"`
+		ServiceName  string `json:"serviceName"`
+		MethodName   string `json:"methodName"`
+		ResourceName string `json:"resourceName"`
+		Response     struct {
+			Uid           string    `json:"uid"`
+			Type          string    `json:"@type"`
+			CreateTime    time.Time `json:"createTime"`
+			ApprovalState string    `json:"approvalState"`
+			State         string    `json:"state"`
+			Name          string    `json:"name"`
+			TargetId      string    `json:"targetId"`
+			Etag          string    `json:"etag"`
+			Phases        []struct {
+				Id             string `json:"id"`
+				State          string `json:"state"`
+				DeploymentJobs struct {
+					DeployJob struct {
+						Id        string `json:"id"`
+						State     string `json:"state"`
+						DeployJob struct {
+						} `json:"deployJob"`
+					} `json:"deployJob"`
+					VerifyJob struct {
+						Id        string `json:"id"`
+						State     string `json:"state"`
+						VerifyJob struct {
+						} `json:"verifyJob"`
+					} `json:"verifyJob"`
+				} `json:"deploymentJobs"`
+			} `json:"phases"`
+		} `json:"response"`
+		ResourceLocation struct {
+			CurrentLocations []string `json:"currentLocations"`
+		} `json:"resourceLocation"`
+	} `json:"protoPayload"`
+	InsertId string `json:"insertId"`
+	Resource struct {
+		Type   string `json:"type"`
+		Labels struct {
+			Service   string `json:"service"`
+			Method    string `json:"method"`
+			ProjectId string `json:"project_id"`
+		} `json:"labels"`
+	} `json:"resource"`
+	Timestamp time.Time `json:"timestamp"`
+	Severity  string    `json:"severity"`
+	LogName   string    `json:"logName"`
+	Operation struct {
+		Id       string `json:"id"`
+		Producer string `json:"producer"`
+		Last     bool   `json:"last"`
+	} `json:"operation"`
+	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
+}
+type TargetLog struct {
+	ProtoPayload struct {
+		Type   string `json:"@type"`
+		Status struct {
+		} `json:"status"`
+		AuthenticationInfo struct {
+			PrincipalEmail string `json:"principalEmail"`
+		} `json:"authenticationInfo"`
+		RequestMetadata struct {
+			RequestAttributes struct {
+			} `json:"requestAttributes"`
+			DestinationAttributes struct {
+			} `json:"destinationAttributes"`
+		} `json:"requestMetadata"`
+		ServiceName  string `json:"serviceName"`
+		MethodName   string `json:"methodName"`
+		ResourceName string `json:"resourceName"`
+		Response     struct {
+			UpdateTime time.Time `json:"updateTime"`
+			Gke        struct {
+				Cluster string `json:"cluster"`
+			} `json:"gke"`
+			Name             string `json:"name"`
+			Uid              string `json:"uid"`
+			Etag             string `json:"etag"`
+			ExecutionConfigs []struct {
+				ExecutionTimeout string   `json:"executionTimeout"`
+				Usages           []string `json:"usages"`
+				DefaultPool      struct {
+					ServiceAccount  string `json:"serviceAccount"`
+					ArtifactStorage string `json:"artifactStorage"`
+				} `json:"defaultPool"`
+				ServiceAccount  string `json:"serviceAccount"`
+				ArtifactStorage string `json:"artifactStorage"`
+			} `json:"executionConfigs"`
+			TargetId   string    `json:"targetId"`
+			CreateTime time.Time `json:"createTime"`
+			Type       string    `json:"@type"`
+		} `json:"response"`
+		ResourceLocation struct {
+			CurrentLocations []string `json:"currentLocations"`
+		} `json:"resourceLocation"`
+	} `json:"protoPayload"`
+	InsertId string `json:"insertId"`
+	Resource struct {
+		Type   string `json:"type"`
+		Labels struct {
+			ProjectId string `json:"project_id"`
+			Service   string `json:"service"`
+			Method    string `json:"method"`
+		} `json:"labels"`
+	} `json:"resource"`
+	Timestamp time.Time `json:"timestamp"`
+	Severity  string    `json:"severity"`
+	LogName   string    `json:"logName"`
+	Operation struct {
+		Id       string `json:"id"`
+		Producer string `json:"producer"`
+		Last     bool   `json:"last"`
+	} `json:"operation"`
+	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
+}
