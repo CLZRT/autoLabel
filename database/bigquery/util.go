@@ -28,7 +28,6 @@ func GetTable(resourceLocation map[string]string) (client *bigquery.Table, err e
 	table := newClient.Dataset(resourceLocation["dataset-id"]).Table(resourceLocation["table-id"])
 	return table, nil
 }
-
 func SetDatasetandTable(labels map[string]string, dataset *bigquery.Dataset) error {
 	ctx := context.Background()
 	// Set DataSet Label

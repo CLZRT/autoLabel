@@ -1,0 +1,170 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "57.180.241.185",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe),gzip(gfe)",
+      "requestAttributes": {
+        "time": "2024-06-07T02:15:32.177559830Z",
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "container.googleapis.com",
+    "methodName": "google.container.v1beta1.ClusterManager.CreateCluster",
+    "authorizationInfo": [
+      {
+        "resource": "projects/testftl-4-6/zones/us-central1-c/clusters/cluster-ruitao",
+        "permission": "container.clusters.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "container.googleapis.com",
+          "name": "projects/testftl-4-6/zones/us-central1-c/clusters/cluster-ruitao",
+          "type": "container.googleapis.com/Cluster"
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-4-6/zones/us-central1-c/clusters/cluster-ruitao",
+    "request": {
+      "parent": "projects/testftl-4-6/locations/us-central1-c",
+      "@type": "type.googleapis.com/google.container.v1alpha1.CreateClusterRequest",
+      "cluster": {
+        "releaseChannel": {
+          "channel": "REGULAR"
+        },
+        "addonsConfig": {
+          "gcsFuseCsiDriverConfig": {},
+          "httpLoadBalancing": {},
+          "horizontalPodAutoscaling": {},
+          "dnsCacheConfig": {},
+          "gcePersistentDiskCsiDriverConfig": {
+            "enabled": true
+          }
+        },
+        "binaryAuthorization": {
+          "evaluationMode": "DISABLED"
+        },
+        "ipAllocationPolicy": {
+          "stackType": "IPV4",
+          "useIpAliases": true
+        },
+        "location": "us-central1-c",
+        "subnetwork": "projects/testftl-4-6/regions/us-central1/subnetworks/default",
+        "monitoringConfig": {
+          "componentConfig": {
+            "enableComponents": [
+              "SYSTEM_COMPONENTS"
+            ]
+          },
+          "managedPrometheusConfig": {
+            "enabled": true
+          }
+        },
+        "defaultMaxPodsConstraint": {},
+        "loggingConfig": {
+          "componentConfig": {
+            "enableComponents": [
+              "SYSTEM_COMPONENTS",
+              "WORKLOADS"
+            ]
+          }
+        },
+        "name": "cluster-ruitao",
+        "authenticatorGroupsConfig": {},
+        "autoscaling": {},
+        "databaseEncryption": {},
+        "nodePools": [
+          {
+            "upgradeSettings": {
+              "maxSurge": 1,
+              "strategy": "SURGE"
+            },
+            "queuedProvisioning": {},
+            "name": "default-pool",
+            "config": {
+              "shieldedInstanceConfig": {},
+              "advancedMachineFeatures": {
+                "enableNestedVirtualization": false
+              },
+              "machineType": "e2-medium",
+              "diskSizeGb": 100,
+              "oauthScopes": [
+                "https://www.googleapis.com/auth/devstorage.read_only",
+                "https://www.googleapis.com/auth/logging.write",
+                "https://www.googleapis.com/auth/monitoring",
+                "https://www.googleapis.com/auth/servicecontrol",
+                "https://www.googleapis.com/auth/service.management.readonly",
+                "https://www.googleapis.com/auth/trace.append"
+              ],
+              "metadata": {
+                "disable-legacy-endpoints": "true"
+              },
+              "imageType": "COS_CONTAINERD",
+              "diskType": "pd-balanced"
+            },
+            "initialNodeCount": 3,
+            "autoscaling": {},
+            "management": {
+              "autoUpgrade": true,
+              "autoRepair": true
+            },
+            "networkConfig": {}
+          }
+        ],
+        "networkConfig": {
+          "datapathProvider": "LEGACY_DATAPATH"
+        },
+        "networkPolicy": {},
+        "shieldedNodes": {},
+        "notificationConfig": {},
+        "initialClusterVersion": "1.29.4-gke.1043002",
+        "network": "projects/testftl-4-6/global/networks/default",
+        "securityPostureConfig": {},
+        "locations": [
+          "us-central1-c"
+        ],
+        "masterAuthorizedNetworksConfig": {}
+      }
+    },
+    "response": {
+      "selfLink": "https://container.googleapis.com/v1alpha1/projects/748418205778/zones/us-central1-c/operations/operation-1717726534563-37530e49-c952-493f-a97a-90f0d22798b8",
+      "targetLink": "https://container.googleapis.com/v1alpha1/projects/748418205778/zones/us-central1-c/clusters/cluster-ruitao",
+      "startTime": "2024-06-07T02:15:34.563798282Z",
+      "@type": "type.googleapis.com/google.container.v1alpha1.Operation",
+      "name": "operation-1717726534563-37530e49-c952-493f-a97a-90f0d22798b8",
+      "operationType": "CREATE_CLUSTER",
+      "status": "RUNNING"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1-c"
+      ]
+    },
+    "policyViolationInfo": {
+      "orgPolicyViolationInfo": {}
+    }
+  },
+  "insertId": "1l70t2kd3pxq",
+  "resource": {
+    "type": "gke_cluster",
+    "labels": {
+      "cluster_name": "cluster-ruitao",
+      "project_id": "testftl-4-6",
+      "location": "us-central1-c"
+    }
+  },
+  "timestamp": "2024-06-07T02:15:34.684678616Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "operation-1717726534563-37530e49-c952-493f-a97a-90f0d22798b8",
+    "producer": "container.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2024-06-07T02:15:34.947583404Z"
+}

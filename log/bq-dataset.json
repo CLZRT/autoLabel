@@ -1,0 +1,74 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "57.180.241.185",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe),gzip(gfe)",
+      "requestAttributes": {},
+      "destinationAttributes": {}
+    },
+    "serviceName": "bigquery.googleapis.com",
+    "methodName": "google.cloud.bigquery.v2.DatasetService.InsertDataset",
+    "authorizationInfo": [
+      {
+        "resource": "projects/testftl-4-6",
+        "permission": "bigquery.datasets.create",
+        "granted": true,
+        "resourceAttributes": {}
+      }
+    ],
+    "resourceName": "projects/testftl-4-6/datasets/dataset_ruitao",
+    "metadata": {
+      "@type": "type.googleapis.com/google.cloud.audit.BigQueryAuditMetadata",
+      "datasetCreation": {
+        "reason": "CREATE",
+        "dataset": {
+          "updateTime": "2024-06-07T02:51:58.220Z",
+          "datasetName": "projects/testftl-4-6/datasets/dataset_ruitao",
+          "acl": {
+            "policy": {
+              "bindings": [
+                {
+                  "role": "roles/bigquery.dataEditor",
+                  "members": [
+                    "projectEditor:testftl-4-6"
+                  ]
+                },
+                {
+                  "role": "roles/bigquery.dataOwner",
+                  "members": [
+                    "projectOwner:testftl-4-6",
+                    "user:zouruitao@ftl-cloud.com"
+                  ]
+                },
+                {
+                  "role": "roles/bigquery.dataViewer",
+                  "members": [
+                    "projectViewer:testftl-4-6"
+                  ]
+                }
+              ]
+            }
+          },
+          "createTime": "2024-06-07T02:51:58.220Z"
+        }
+      }
+    }
+  },
+  "insertId": "-kim6tddfot9",
+  "resource": {
+    "type": "bigquery_dataset",
+    "labels": {
+      "project_id": "testftl-4-6",
+      "dataset_id": "dataset_ruitao"
+    }
+  },
+  "timestamp": "2024-06-07T02:51:58.323129Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2024-06-07T02:51:58.881412856Z"
+}

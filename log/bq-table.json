@@ -1,0 +1,50 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "57.180.241.185",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe),gzip(gfe)",
+      "requestAttributes": {},
+      "destinationAttributes": {}
+    },
+    "serviceName": "bigquery.googleapis.com",
+    "methodName": "google.cloud.bigquery.v2.TableService.InsertTable",
+    "authorizationInfo": [
+      {
+        "resource": "projects/testftl-4-6/datasets/dataset_ruitao",
+        "permission": "bigquery.tables.create",
+        "granted": true,
+        "resourceAttributes": {}
+      }
+    ],
+    "resourceName": "projects/testftl-4-6/datasets/dataset_ruitao/tables/table_ruitao_6_7",
+    "metadata": {
+      "@type": "type.googleapis.com/google.cloud.audit.BigQueryAuditMetadata",
+      "tableCreation": {
+        "table": {
+          "updateTime": "2024-06-07T02:52:32.141Z",
+          "schemaJson": "{\n}",
+          "createTime": "2024-06-07T02:52:31.998Z",
+          "tableName": "projects/testftl-4-6/datasets/dataset_ruitao/tables/table_ruitao_6_7"
+        },
+        "reason": "TABLE_INSERT_REQUEST"
+      }
+    }
+  },
+  "insertId": "-2gzt8hd6fy3",
+  "resource": {
+    "type": "bigquery_dataset",
+    "labels": {
+      "dataset_id": "dataset_ruitao",
+      "project_id": "testftl-4-6"
+    }
+  },
+  "timestamp": "2024-06-07T02:52:32.189533Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "receiveTimestamp": "2024-06-07T02:52:32.661971175Z"
+}

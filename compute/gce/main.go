@@ -37,20 +37,11 @@ func NewGce(logAudit *logstruct.GceLog) error {
 	labelFingerprint := instance.GetLabelFingerprint()
 	labels := map[string]string{}
 
-	// 判断 实例是否存在标签
-	existLabels := instance.GetLabels()
-	if existLabels == nil {
-		labels["created-by"] = operatorString
-		labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
-		labels["instance-id"] = instanceId
-		labels["instance-name"] = instance.GetName()
-	} else {
-		for k, v := range existLabels {
-			labels[k] = v
-		}
-		labels["updated-by"] = operatorString
-		labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
-	}
+	labels["created-by"] = operatorString
+	labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
+	labels["instance-id"] = instanceId
+	labels["instance-name"] = instance.GetName()
+
 	log.Printf("labels: %v", labels)
 	log.Printf("get entry in setInstanceLabel")
 	err = setInstanceLabel(resourceLocation, labels, &labelFingerprint)
@@ -67,7 +58,7 @@ func NewGce(logAudit *logstruct.GceLog) error {
 		resourceLocation := map[string]string{
 			"project-id": resourceNameArray[1],
 			"zone":       resourceNameArray[3],
-			"name":       instance.GetName(),
+			"name":       diskInfo.GetDeviceName(),
 		}
 		getDisk, err := disk.GetDisk(resourceLocation)
 		if err != nil {
@@ -78,7 +69,7 @@ func NewGce(logAudit *logstruct.GceLog) error {
 			"created-by":    operatorString,
 			"size-gb":       strconv.FormatInt(diskInfo.GetDiskSizeGb(), 10),
 			"instance-id":   instanceId,
-			"instance-name": instance.GetName(),
+			"instance-name": diskInfo.GetDeviceName(),
 		}
 		err = disk.SetDiskLabel(resourceLocation, labelsDisk, &fingerprint)
 		if err != nil {
@@ -87,7 +78,6 @@ func NewGce(logAudit *logstruct.GceLog) error {
 		log.Printf("The inserted instance's disk %s has been  labeled successfully", diskName)
 
 	}
-
 	return nil
 
 }
@@ -114,26 +104,60 @@ func UpdateGce(logAudit *logstruct.GceLog) error {
 	operator := logAudit.ProtoPayload.AuthenticationInfo.PrincipalEmail
 	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9-]+")
 	operatorString := labelSanitizer.ReplaceAllString(strings.ToLower(operator), "-")
+	machineTypeArray := strings.Split(instance.GetMachineType(), "/")
+	// setInstanceLabel
+	labelFingerprint := instance.GetLabelFingerprint()
+	labels := map[string]string{}
+
+	labels = instance.GetLabels()
+	labels["updated-by"] = operatorString
+	labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
+
+	log.Printf("labels: %v", labels)
+	log.Printf("get entry in setInstanceLabel")
+	err = setInstanceLabel(resourceLocation, labels, &labelFingerprint)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	log.Printf("The inserted instance %s has been  labeled successfully", instance.GetName())
+
+	return nil
+
+}
+
+func BulkGce(logAudit *logstruct.GceLog) error {
+	resourceNameArray := strings.Split(logAudit.ProtoPayload.ResourceName, "/")
+	resourceLocation := map[string]string{
+		"project-id":  resourceNameArray[1],
+		"zone":        resourceNameArray[3],
+		"instance-id": resourceNameArray[5],
+	}
+	// Get instance
+	log.Printf("resourceLocation: %v", resourceLocation)
+	log.Printf("get entry in getInstance")
+	instance, err := getInstance(resourceLocation)
+
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+
+	// extra info from logstruct
+	operator := logAudit.ProtoPayload.AuthenticationInfo.PrincipalEmail
+	labelSanitizer := regexp.MustCompile("[^a-zA-Z0-9-]+")
+	operatorString := labelSanitizer.ReplaceAllString(strings.ToLower(operator), "-")
 	instanceId := logAudit.Resource.Labels.InstanceId
 	machineTypeArray := strings.Split(instance.GetMachineType(), "/")
 	// setInstanceLabel
 	labelFingerprint := instance.GetLabelFingerprint()
 	labels := map[string]string{}
 
-	// 判断 实例是否存在标签
-	existLabels := instance.GetLabels()
-	if existLabels == nil {
-		labels["created-by"] = operatorString
-		labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
-		labels["instance-id"] = instanceId
-		labels["instance-name"] = instance.GetName()
-	} else {
-		for k, v := range existLabels {
-			labels[k] = v
-		}
-		labels["updated-by"] = operatorString
-		labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
-	}
+	labels["created-by"] = operatorString
+	labels["machine-type"] = machineTypeArray[len(machineTypeArray)-1]
+	labels["instance-id"] = instanceId
+	labels["instance-name"] = instance.GetName()
+
 	log.Printf("labels: %v", labels)
 	log.Printf("get entry in setInstanceLabel")
 	err = setInstanceLabel(resourceLocation, labels, &labelFingerprint)
@@ -170,7 +194,6 @@ func UpdateGce(logAudit *logstruct.GceLog) error {
 		log.Printf("The inserted instance's disk %s has been  labeled successfully", diskName)
 
 	}
-
 	return nil
 
 }

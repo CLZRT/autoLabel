@@ -27,7 +27,7 @@ protoPayload.serviceName="bigquery.googleapis.com" AND
         )OR
 protoPayload.serviceName="dataproc.googleapis.com" AND
         (
-         protoPayload.methodName =~ ".*CreateCLuster"
+         protoPayload.methodName =~ ".*CreateCluster"
         )OR
 protoPayload.serviceName="storage.googleapis.com" AND
         (

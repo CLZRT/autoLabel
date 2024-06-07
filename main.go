@@ -1,4 +1,4 @@
-package autolabel
+package main
 
 import (
 	"clzrt.io/autolabel/compute/dataproc"
@@ -8,6 +8,7 @@ import (
 	"clzrt.io/autolabel/database/bigquery"
 	"clzrt.io/autolabel/database/memory"
 	"clzrt.io/autolabel/database/sql"
+	"clzrt.io/autolabel/devops/deploy"
 	"clzrt.io/autolabel/security/apigateway"
 	"clzrt.io/autolabel/storage/ar"
 	"clzrt.io/autolabel/storage/disk"
@@ -17,16 +18,70 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	"github.com/cloudevents/sdk-go/v2/event"
 	"github.com/tidwall/gjson"
+	"io/ioutil"
 	"log"
 	"strings"
 )
 
-func init() {
+//func init() {
+//
+//	functions.CloudEvent("labelResource", labelResource)
+//}
 
-	functions.CloudEvent("labelResource", labelResource)
+func main() {
+	// Call the test function with the path to your JSON file
+	err := TestLabelResource("./log/autopilot-cluster-1.json")
+	if err != nil {
+		log.Printf("Test failed: %v", err)
+	}
+}
+
+func TestLabelResource(filePath string) error {
+	// 读取 JSON 文件内容
+	data, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		log.Fatalf("Unable to read file: %v", err)
+		return err
+	}
+
+	// 构建 Cloud Event
+	e := event.New()
+	e.SetData(event.ApplicationJSON, []byte(data))
+
+	// 构建模拟的消息结构体，适配您现有的数据结构
+	msg := logstruct.MessagePublishedData{
+		Message: logstruct.PubSubMessage{
+			Data: []byte(data), // 这里需要的是 []byte 类型
+		},
+	}
+
+	// 将 msg 对象编码为 JSON
+	msgData, err := json.Marshal(msg)
+	if err != nil {
+		log.Fatalf("Error marshalling msg to JSON: %v", err)
+		return err
+	}
+
+	// 手动设置 Event 的 Data 为 msgData
+	err = e.SetData(event.ApplicationJSON, msgData)
+	if err != nil {
+		log.Printf("Failed to set event data: %v", err)
+		return err
+	}
+
+	// 创建上下文
+	ctx := context.Background()
+
+	// 调用 labelResource 函数
+	err = labelResource(ctx, e)
+	if err != nil {
+		log.Printf("Error during labelResource: %v", err)
+		return err
+	}
+
+	return nil
 }
 
 func labelResource(ctx context.Context, ev event.Event) error {
@@ -48,15 +103,18 @@ func labelResource(ctx context.Context, ev event.Event) error {
 		if strings.Contains(methodName, "instance") {
 			log.Printf("Get Into Instance")
 			if strings.Contains(methodName, "instances.insert") {
-				gceLog := new(logstruct.GceLog)
-				err := json.Unmarshal([]byte(logString), gceLog)
-				if err != nil {
-					return err
+				if gjson.Get(logString, "operation.last").String() == "true" {
+					gceLog := new(logstruct.GceLog)
+					err := json.Unmarshal([]byte(logString), gceLog)
+					if err != nil {
+						return err
+					}
+					err = gce.NewGce(gceLog)
+					if err != nil {
+						return err
+					}
 				}
-				err = gce.NewGce(gceLog)
-				if err != nil {
-					return err
-				}
+
 			} else if strings.Contains(methodName, "instances.setMachineType") {
 				gceLog := new(logstruct.GceLog)
 				err := json.Unmarshal([]byte(logString), gceLog)
@@ -77,7 +135,7 @@ func labelResource(ctx context.Context, ev event.Event) error {
 				return err
 			}
 			log.Printf("Get Into GCE")
-			err = gce.NewGce(gceLog)
+			err = gce.BulkGce(gceLog)
 			if err != nil {
 				return err
 			}
@@ -145,7 +203,7 @@ func labelResource(ctx context.Context, ev event.Event) error {
 			if err != nil {
 				return err
 			}
-		} else if strings.Contains(methodName, "table") {
+		} else if strings.Contains(methodName, "insert") {
 			log.Printf("Label table")
 			tableLog := new(logstruct.TablelogBG)
 			err := json.Unmarshal([]byte(logString), tableLog)
@@ -237,7 +295,7 @@ func labelResource(ctx context.Context, ev event.Event) error {
 			}
 		}
 	case "artifactregistry.googleapis.com":
-		if strings.Contains(methodName, "artifactregistry") {
+		if strings.Contains(methodName, "CreateRepository") {
 			log.Printf("label artifactregistry")
 			arLog := new(logstruct.Arlog)
 			err := json.Unmarshal([]byte(logString), arLog)
@@ -258,6 +316,31 @@ func labelResource(ctx context.Context, ev event.Event) error {
 				return err
 			}
 			err = apigateway.Api(apislog)
+			if err != nil {
+				return err
+			}
+		}
+	case "clouddeploy.googleapis.com":
+		if strings.Contains(methodName, "CreateTarget") {
+			log.Printf("label cloud-deploy target")
+			targetlog := new(logstruct.TargetLog)
+			err := json.Unmarshal([]byte(logString), targetlog)
+			if err != nil {
+				return err
+			}
+			err = deploy.Target(targetlog)
+			if err != nil {
+				return err
+			}
+
+		} else if strings.Contains(methodName, "CreateRollout") {
+			log.Printf("update cloud-deploy target label")
+			rolloutlog := new(logstruct.RolloutLog)
+			err := json.Unmarshal([]byte(logString), rolloutlog)
+			if err != nil {
+				return err
+			}
+			err = deploy.Rollout(rolloutlog)
 			if err != nil {
 				return err
 			}

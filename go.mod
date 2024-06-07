@@ -5,7 +5,7 @@ go 1.22.3
 require (
 	clzrt.io/autolabel/compute v0.0.0
 	clzrt.io/autolabel/database v0.0.0
-	clzrt.io/autolabel/devops v0.0.0
+	clzrt.io/autolabel/devops v0.0.0-00010101000000-000000000000
 	clzrt.io/autolabel/security v0.0.0
 	clzrt.io/autolabel/storage v0.0.0
 	clzrt.io/autolabel/struct v0.0.0
