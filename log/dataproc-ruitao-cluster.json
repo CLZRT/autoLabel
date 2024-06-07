@@ -1,0 +1,100 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com",
+      "principalSubject": "user:zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "57.180.241.185",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe)",
+      "requestAttributes": {
+        "time": "2024-06-07T03:52:28.791499Z",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "dataproc.googleapis.com",
+    "methodName": "google.cloud.dataproc.v1.ClusterController.CreateCluster",
+    "authorizationInfo": [
+      {
+        "permission": "dataproc.clusters.create",
+        "granted": true,
+        "resourceAttributes": {},
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-4-6/regions/us-central1/clusters/cluster-ruitao-dataproc",
+    "request": {
+      "cluster": {
+        "projectId": "testftl-4-6",
+        "clusterName": "cluster-ruitao-dataproc",
+        "config": {
+          "gceClusterConfig": {
+            "networkUri": "default",
+            "internalIpOnly": true,
+            "shieldedInstanceConfig": {
+              "enableSecureBoot": false,
+              "enableVtpm": false,
+              "enableIntegrityMonitoring": false
+            }
+          },
+          "masterConfig": {
+            "numInstances": 1,
+            "machineTypeUri": "n2-standard-4",
+            "diskConfig": {
+              "bootDiskSizeGb": 500,
+              "bootDiskType": "pd-balanced"
+            }
+          },
+          "softwareConfig": {
+            "imageVersion": "2.2-debian12",
+            "properties": {
+              "dataproc:dataproc.allow.zero.workers": "true"
+            }
+          },
+          "encryptionConfig": {},
+          "securityConfig": {
+            "kerberosConfig": {}
+          },
+          "lifecycleConfig": {},
+          "autoscalingConfig": {},
+          "endpointConfig": {}
+        },
+        "status": {},
+        "statusHistory": [
+          {}
+        ],
+        "metrics": {}
+      },
+      "region": "us-central1",
+      "projectId": "testftl-4-6",
+      "@type": "type.googleapis.com/google.cloud.dataproc.v1.CreateClusterRequest"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1"
+      ]
+    }
+  },
+  "insertId": "w6xqe0d99ky",
+  "resource": {
+    "type": "cloud_dataproc_cluster",
+    "labels": {
+      "region": "us-central1",
+      "cluster_uuid": "2e057525-99a9-4324-a28e-60bf11418118",
+      "project_id": "testftl-4-6",
+      "cluster_name": "cluster-ruitao-dataproc"
+    }
+  },
+  "timestamp": "2024-06-07T03:52:27.393431Z",
+  "severity": "NOTICE",
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "projects/testftl-4-6/regions/us-central1/operations/c2570d18-645c-4e68-b068-2ffd2fe7ac50",
+    "producer": "dataproc.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2024-06-07T03:52:29.383684510Z"
+}

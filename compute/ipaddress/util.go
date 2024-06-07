@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-func GetIpaddress(ipLocation map[string]string) (*computepb.Address, error) {
+func getIpaddress(ipLocation map[string]string) (*computepb.Address, error) {
 	ctx := context.Background()
 	addressService, err := compute.NewAddressesRESTClient(ctx)
 	if err != nil {
@@ -28,7 +28,7 @@ func GetIpaddress(ipLocation map[string]string) (*computepb.Address, error) {
 
 }
 
-func SetIpaddress(ipLocation, labels map[string]string, ipaddress *computepb.Address) error {
+func setIpaddress(ipLocation, labels map[string]string, ipaddress *computepb.Address) error {
 	ctx := context.Background()
 	addressService, err := compute.NewAddressesRESTClient(ctx)
 	if err != nil {
@@ -44,6 +44,40 @@ func SetIpaddress(ipLocation, labels map[string]string, ipaddress *computepb.Add
 			Labels:           labels,
 		},
 		Resource: ipLocation["name"],
+	})
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func getGlobalIP(ipLocation map[string]string) (*computepb.Address, error) {
+	ctx := context.Background()
+	addressService, err := compute.NewGlobalAddressesRESTClient(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer addressService.Close()
+	address, err := addressService.Get(ctx, &computepb.GetGlobalAddressRequest{
+		Project: ipLocation["project_id"],
+		Address: ipLocation["name"],
+	})
+	return address, err
+}
+
+func setGlobalIp(ipLocation, labels map[string]string, ipaddress *computepb.Address) error {
+	ctx := context.Background()
+	addressService, err := compute.NewGlobalAddressesRESTClient(ctx)
+	if err != nil {
+		return err
+	}
+	_, err = addressService.SetLabels(ctx, &computepb.SetLabelsGlobalAddressRequest{
+		Project:  ipLocation["project_id"],
+		Resource: ipLocation["name"],
+		GlobalSetLabelsRequestResource: &computepb.GlobalSetLabelsRequest{
+			LabelFingerprint: ipaddress.LabelFingerprint,
+			Labels:           labels,
+		},
 	})
 	if err != nil {
 		return err

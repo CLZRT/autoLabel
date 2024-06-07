@@ -1,0 +1,52 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "57.180.241.185",
+      "requestAttributes": {
+        "time": "2024-06-03T02:22:21.845818Z",
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "cloudsql.googleapis.com",
+    "methodName": "cloudsql.instances.create",
+    "authorizationInfo": [
+      {
+        "resource": "projects/autolabel-project",
+        "permission": "cloudsql.instances.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "sqladmin.googleapis.com",
+          "name": "projects/autolabel-project/instances/auto-porstgre",
+          "type": "sqladmin.googleapis.com/Instance"
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/autolabel-project"
+  },
+  "insertId": "2jog8ae4runp",
+  "resource": {
+    "type": "cloudsql_database",
+    "labels": {
+      "project_id": "autolabel-project",
+      "region": "",
+      "database_id": ""
+    }
+  },
+  "timestamp": "2024-06-03T02:27:54.214439Z",
+  "severity": "NOTICE",
+  "logName": "projects/autolabel-project/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "1623b5e4-bd3c-427d-900a-5b1500000032",
+    "producer": "cloudsql.googleapis.com",
+    "last": true
+  },
+  "receiveTimestamp": "2024-06-03T02:27:54.918206448Z"
+}

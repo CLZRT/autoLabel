@@ -1,0 +1,81 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "57.180.241.185",
+      "callerSuppliedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe),gzip(gfe)",
+      "requestAttributes": {
+        "time": "2024-06-07T03:38:16.064603Z",
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "compute.googleapis.com",
+    "methodName": "v1.compute.globalAddresses.insert",
+    "authorizationInfo": [
+      {
+        "resource": "projects/testftl-4-6/global/addresses/ipaddress-ruitao2",
+        "permission": "compute.globalAddresses.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "compute",
+          "name": "projects/testftl-4-6/global/addresses/ipaddress-ruitao2",
+          "type": "compute.globalAddresses"
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/testftl-4-6/global/addresses/ipaddress-ruitao2",
+    "request": {
+      "name": "ipaddress-ruitao2",
+      "networkTier": "PREMIUM",
+      "ipVersion": "IPV4",
+      "@type": "type.googleapis.com/compute.globalAddresses.insert"
+    },
+    "response": {
+      "id": "1489829488413851208",
+      "name": "operation-1717731495436-61a44879ae262-21323b80-799b7351",
+      "operationType": "insert",
+      "targetLink": "https://www.googleapis.com/compute/v1/projects/testftl-4-6/global/addresses/ipaddress-ruitao2",
+      "targetId": "8439003182256832072",
+      "status": "RUNNING",
+      "user": "zouruitao@ftl-cloud.com",
+      "progress": "0",
+      "insertTime": "2024-06-06T20:38:15.759-07:00",
+      "startTime": "2024-06-06T20:38:15.766-07:00",
+      "selfLink": "https://www.googleapis.com/compute/v1/projects/testftl-4-6/global/operations/operation-1717731495436-61a44879ae262-21323b80-799b7351",
+      "selfLinkWithId": "https://www.googleapis.com/compute/v1/projects/testftl-4-6/global/operations/1489829488413851208",
+      "@type": "type.googleapis.com/operation"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "global"
+      ]
+    }
+  },
+  "insertId": "o57yhye379ys",
+  "resource": {
+    "type": "gce_reserved_address",
+    "labels": {
+      "project_id": "testftl-4-6",
+      "location": "global",
+      "reserved_address_id": "8439003182256832072"
+    }
+  },
+  "timestamp": "2024-06-07T03:38:15.553901Z",
+  "severity": "NOTICE",
+  "labels": {
+    "compute.googleapis.com/root_trigger_id": "bd5555db-5a87-4658-bbba-0f93a033ca7a"
+  },
+  "logName": "projects/testftl-4-6/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "operation-1717731495436-61a44879ae262-21323b80-799b7351",
+    "producer": "compute.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2024-06-07T03:38:16.637698429Z"
+}

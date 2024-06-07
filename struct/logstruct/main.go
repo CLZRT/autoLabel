@@ -1431,3 +1431,82 @@ type TargetLog struct {
 	} `json:"operation"`
 	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
 }
+type GlobalAddressLog struct {
+	ProtoPayload struct {
+		Type               string `json:"@type"`
+		AuthenticationInfo struct {
+			PrincipalEmail string `json:"principalEmail"`
+		} `json:"authenticationInfo"`
+		RequestMetadata struct {
+			CallerIp                string `json:"callerIp"`
+			CallerSuppliedUserAgent string `json:"callerSuppliedUserAgent"`
+			RequestAttributes       struct {
+				Time   time.Time `json:"time"`
+				Reason string    `json:"reason"`
+				Auth   struct {
+				} `json:"auth"`
+			} `json:"requestAttributes"`
+			DestinationAttributes struct {
+			} `json:"destinationAttributes"`
+		} `json:"requestMetadata"`
+		ServiceName       string `json:"serviceName"`
+		MethodName        string `json:"methodName"`
+		AuthorizationInfo []struct {
+			Resource           string `json:"resource"`
+			Permission         string `json:"permission"`
+			Granted            bool   `json:"granted"`
+			ResourceAttributes struct {
+				Service string `json:"service"`
+				Name    string `json:"name"`
+				Type    string `json:"type"`
+			} `json:"resourceAttributes"`
+			PermissionType string `json:"permissionType"`
+		} `json:"authorizationInfo"`
+		ResourceName string `json:"resourceName"`
+		Request      struct {
+			Name        string `json:"name"`
+			NetworkTier string `json:"networkTier"`
+			IpVersion   string `json:"ipVersion"`
+			Type        string `json:"@type"`
+		} `json:"request"`
+		Response struct {
+			Id             string    `json:"id"`
+			Name           string    `json:"name"`
+			OperationType  string    `json:"operationType"`
+			TargetLink     string    `json:"targetLink"`
+			TargetId       string    `json:"targetId"`
+			Status         string    `json:"status"`
+			User           string    `json:"user"`
+			Progress       string    `json:"progress"`
+			InsertTime     time.Time `json:"insertTime"`
+			StartTime      time.Time `json:"startTime"`
+			SelfLink       string    `json:"selfLink"`
+			SelfLinkWithId string    `json:"selfLinkWithId"`
+			Type           string    `json:"@type"`
+		} `json:"response"`
+		ResourceLocation struct {
+			CurrentLocations []string `json:"currentLocations"`
+		} `json:"resourceLocation"`
+	} `json:"protoPayload"`
+	InsertId string `json:"insertId"`
+	Resource struct {
+		Type   string `json:"type"`
+		Labels struct {
+			ProjectId         string `json:"project_id"`
+			Location          string `json:"location"`
+			ReservedAddressId string `json:"reserved_address_id"`
+		} `json:"labels"`
+	} `json:"resource"`
+	Timestamp time.Time `json:"timestamp"`
+	Severity  string    `json:"severity"`
+	Labels    struct {
+		ComputeGoogleapisComRootTriggerId string `json:"compute.googleapis.com/root_trigger_id"`
+	} `json:"labels"`
+	LogName   string `json:"logName"`
+	Operation struct {
+		Id       string `json:"id"`
+		Producer string `json:"producer"`
+		First    bool   `json:"first"`
+	} `json:"operation"`
+	ReceiveTimestamp time.Time `json:"receiveTimestamp"`
+}

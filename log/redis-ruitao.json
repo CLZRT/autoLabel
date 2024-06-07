@@ -1,0 +1,75 @@
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "status": {},
+    "authenticationInfo": {
+      "principalEmail": "zouruitao@ftl-cloud.com"
+    },
+    "requestMetadata": {
+      "callerIp": "::1",
+      "requestAttributes": {
+        "time": "2024-06-07T06:37:57.206968777Z",
+        "reason": "8uSywAYQGg5Db2xpc2V1bSBGbG93cw",
+        "auth": {}
+      },
+      "destinationAttributes": {}
+    },
+    "serviceName": "redis.googleapis.com",
+    "methodName": "google.cloud.redis.v1.CloudRedis.CreateInstance",
+    "authorizationInfo": [
+      {
+        "resource": "projects/autolabel-project/locations/us-central1/instances/redis-ruitao",
+        "permission": "redis.instances.create",
+        "granted": true,
+        "resourceAttributes": {
+          "service": "redis.googleapis.com",
+          "name": "projects/autolabel-project/locations/us-central1/instances/redis-ruitao"
+        },
+        "permissionType": "ADMIN_WRITE"
+      }
+    ],
+    "resourceName": "projects/autolabel-project/locations/us-central1/instances/redis-ruitao",
+    "request": {
+      "instance_id": "redis-ruitao",
+      "instance": {
+        "redis_version": "REDIS_7_0",
+        "tier": "BASIC",
+        "memory_size_gb": 16,
+        "authorized_network": "projects/autolabel-project/global/networks/test-vpc",
+        "connect_mode": "PRIVATE_SERVICE_ACCESS",
+        "transit_encryption_mode": "DISABLED",
+        "persistence_config": {
+          "persistence_mode": "DISABLED"
+        }
+      },
+      "parent": "projects/autolabel-project/locations/us-central1",
+      "@type": "type.googleapis.com/google.cloud.redis.v1.CreateInstanceRequest"
+    },
+    "response": {
+      "@type": "type.googleapis.com/google.longrunning.Operation"
+    },
+    "resourceLocation": {
+      "currentLocations": [
+        "us-central1"
+      ]
+    }
+  },
+  "insertId": "15xkiq0e3plw9",
+  "resource": {
+    "type": "audited_resource",
+    "labels": {
+      "project_id": "autolabel-project",
+      "method": "google.cloud.redis.v1.CloudRedis.CreateInstance",
+      "service": "redis.googleapis.com"
+    }
+  },
+  "timestamp": "2024-06-07T06:37:57.874737596Z",
+  "severity": "NOTICE",
+  "logName": "projects/autolabel-project/logs/cloudaudit.googleapis.com%2Factivity",
+  "operation": {
+    "id": "projects/autolabel-project/locations/us-central1/operations/operation-1717742277213-61a470a3fbefa-0b240ad4-de8d2ff0",
+    "producer": "redis.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2024-06-07T06:37:58.626575509Z"
+}
