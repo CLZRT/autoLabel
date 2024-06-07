@@ -26,7 +26,6 @@ import (
 )
 
 func init() {
-
 	functions.CloudEvent("labelResource", labelResource)
 }
 func labelResource(ctx context.Context, ev event.Event) error {
