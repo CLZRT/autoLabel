@@ -1,1 +1,1 @@
-# Aim to Label all gcp resources
+# Just  Label some gcp resources with audit log.
